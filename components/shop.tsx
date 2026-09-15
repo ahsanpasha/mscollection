@@ -1,0 +1,196 @@
+"use client";
+
+import Link from "next/link";
+import { ChevronDown, SlidersHorizontal } from "lucide-react";
+import { useMemo, useState } from "react";
+import { colorValue, formatPrice, products, type Product } from "@/lib/catalog";
+
+export function SectionTitle({ eyebrow, title, copy }: { eyebrow?: string; title: string; copy?: string }) {
+  return (
+    <div className="mx-auto mb-10 max-w-2xl text-center">
+      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+      <h2 className="font-display text-4xl leading-tight md:text-5xl lg:text-6xl">{title}</h2>
+      {copy && <p className="mt-4 text-sm leading-7 text-muted-foreground md:text-base">{copy}</p>}
+    </div>
+  );
+}
+
+export function ProductCard({ product }: { product: Product }) {
+  return (
+    <article className="product-card group min-w-0">
+      <Link href={`/product/${product.id}`} className="block">
+        {/* Image container with subtle luxury zoom on the exact same image */}
+        <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
+          <img
+            src={product.image}
+            alt={product.name}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+
+          {/* Badges */}
+          {product.newArrival && (
+            <span className="absolute left-3 top-3 bg-background/95 px-2.5 py-1 text-[10px] uppercase tracking-[.18em] font-medium shadow-xs">
+              New
+            </span>
+          )}
+          {product.originalPrice && (
+            <span className="absolute left-3 top-3 bg-sale px-2.5 py-1 text-[10px] uppercase tracking-[.18em] text-sale-foreground font-medium shadow-xs">
+              Sale
+            </span>
+          )}
+
+          {/* Bottom subtle bar on hover */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-between text-white text-xs tracking-wider uppercase">
+            <span>View Details</span>
+            <span>&rarr;</span>
+          </div>
+        </div>
+
+        {/* Product meta info */}
+        <div className="pt-4">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0">
+              <p className="text-[10px] uppercase tracking-[.18em] text-muted-foreground">
+                {product.collection} · {product.category}
+              </p>
+              <h3 className="mt-1 font-display text-xl leading-tight text-foreground transition-colors group-hover:text-gold truncate">
+                {product.name}
+              </h3>
+            </div>
+            <div className="flex shrink-0 gap-1 pt-1.5">
+              {product.colors.slice(0, 3).map((c) => (
+                <span
+                  key={c}
+                  title={c}
+                  className="h-2.5 w-2.5 rounded-full border border-border"
+                  style={{ backgroundColor: colorValue[c] || "#ddd" }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-2 flex items-baseline gap-2 text-sm">
+            <span className="font-medium text-foreground">{formatPrice(product.price)}</span>
+            {product.originalPrice && (
+              <span className="text-xs text-muted-foreground line-through">
+                {formatPrice(product.originalPrice)}
+              </span>
+            )}
+          </div>
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+export function ProductGrid({ items }: { items: Product[] }) {
+  return (
+    <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
+      {items.map((p) => (
+        <ProductCard key={p.id} product={p} />
+      ))}
+    </div>
+  );
+}
+
+export function CatalogPage({
+  title,
+  copy,
+  gender,
+  mode = "all",
+  initialCategory = "all",
+}: {
+  title: string;
+  copy: string;
+  gender?: "Women" | "Men" | string;
+  mode?: string;
+  initialCategory?: string;
+}) {
+  const [cat, setCat] = useState(initialCategory);
+  const [sort, setSort] = useState("featured");
+
+  const list = useMemo(() => {
+    return products
+      .filter((p) => (gender ? p.gender === gender : true))
+      .filter((p) => {
+        if (mode === "new") return !!p.newArrival;
+        if (mode === "sale") return !!p.originalPrice;
+        if (mode === "stitched") return p.category.includes("Piece") || p.category === "Formal" || p.category === "Kurta";
+        if (mode === "unstitched") return p.category.includes("Piece") || p.fabric.toLowerCase().includes("lawn");
+        return true;
+      })
+      .filter((p) => {
+        if (cat === "all") return true;
+        return p.category.toLowerCase().includes(cat.toLowerCase()) || p.collection.toLowerCase().includes(cat.toLowerCase());
+      })
+      .sort((a, b) => {
+        if (sort === "price-asc") return a.price - b.price;
+        if (sort === "price-desc") return b.price - a.price;
+        return (b.popular || 0) - (a.popular || 0);
+      });
+  }, [gender, mode, cat, sort]);
+
+  const categories = gender === "Men"
+    ? ["all", "Kurta", "Waistcoat"]
+    : ["all", "2 Piece", "3 Piece", "Formal", "Luxury"];
+
+  return (
+    <main>
+      <div className="editorial-banner">
+        <div>
+          <p className="eyebrow">MS Collection Atelier</p>
+          <h1>{title}</h1>
+          <p>{copy}</p>
+        </div>
+      </div>
+
+      <div className="page-shell py-12">
+        {/* Filter bar */}
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+          <div className="flex flex-wrap gap-2">
+            {categories.map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setCat(c)}
+                className={`px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
+                  cat === c
+                    ? "border-b-2 border-primary font-semibold text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {c === "all" ? "All Pieces" : c}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">
+              {list.length} Articles
+            </span>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              aria-label="Sort products"
+              className="border border-border bg-background px-3 py-1.5 text-xs uppercase tracking-wider outline-none"
+            >
+              <option value="featured">Sort: Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        {list.length ? (
+          <ProductGrid items={list} />
+        ) : (
+          <div className="py-20 text-center">
+            <h3 className="font-display text-3xl">No articles found</h3>
+            <p className="mt-2 text-sm text-muted-foreground">Try selecting a different category filter.</p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}

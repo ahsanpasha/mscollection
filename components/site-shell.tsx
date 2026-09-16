@@ -26,12 +26,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
         style={{ background: "#ffffff", borderBottom: "1px solid #e8e5dc" }}
         className="sticky top-0 z-40 w-full shadow-sm"
       >
-        <div className="page-shell flex h-20 items-center justify-between gap-4 lg:h-24">
+        <div className="page-shell flex h-14 items-center justify-between gap-4 lg:h-16">
           {/* Logo */}
           <Link href="/" aria-label="MS Collection home" className="flex items-center shrink-0">
-            <span className="font-display text-2xl font-bold tracking-[0.2em] sm:text-3xl" style={{ color: "#1c1b18" }}>
-              MS COLLECTION
-            </span>
+            <img
+              src="/assets/logo.jpg"
+              alt="MS Collection"
+              className="object-contain"
+              style={{ height: 42, width: "auto", maxWidth: 160 }}
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -65,10 +68,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 <SheetDescription className="sr-only">Browse MS Collection</SheetDescription>
 
                 <div className="border-b border-[#e8e5dc] p-6" style={{ background: "#ffffff" }}>
-                  <span className="font-display text-2xl font-bold tracking-[0.18em]" style={{ color: "#1c1b18" }}>
-                    MS COLLECTION
-                  </span>
-                  <p className="text-[11px] uppercase tracking-widest mt-1" style={{ color: "#73716b" }}>
+                  <img
+                    src="/assets/logo.jpg"
+                    alt="MS Collection"
+                    className="object-contain"
+                    style={{ height: 48, width: "auto", maxWidth: 180 }}
+                  />
+                  <p className="text-[11px] uppercase tracking-widest mt-2" style={{ color: "#73716b" }}>
                     Luxury Pakistani Boutique
                   </p>
                 </div>
@@ -127,12 +133,50 @@ function Footer() {
           </p>
           <p className="mt-3 text-xs" style={{ color: "#9c9a92" }}>Nationwide Delivery · Pakistan</p>
           {/* Social icons row */}
-          <div className="mt-5 flex items-center gap-4">
-            {[["Instagram", "#"], ["Facebook", "#"], ["TikTok", "#"]].map(([name, href]) => (
-              <a key={name} href={href} className="text-xs uppercase tracking-wider hover:text-gold transition-colors" style={{ color: "#9c9a92" }}>
-                {name}
-              </a>
-            ))}
+          <div className="mt-5 flex items-center gap-3">
+            {/* Instagram */}
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="group flex items-center justify-center rounded-full transition-all duration-300"
+              style={{ width: 38, height: 38, background: "rgba(156,154,146,0.12)", border: "1px solid rgba(156,154,146,0.2)" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(247,246,242,0.12)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(247,246,242,0.5)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(156,154,146,0.12)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(156,154,146,0.2)"; }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="#9c9a92" strokeWidth="1.8" className="group-hover:stroke-[#f7f6f2] transition-colors"/>
+                <circle cx="12" cy="12" r="4.5" stroke="#9c9a92" strokeWidth="1.8" className="group-hover:stroke-[#f7f6f2] transition-colors"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="#9c9a92" className="group-hover:fill-[#f7f6f2] transition-colors"/>
+              </svg>
+            </a>
+
+            {/* Facebook */}
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="group flex items-center justify-center rounded-full transition-all duration-300"
+              style={{ width: 38, height: 38, background: "rgba(156,154,146,0.12)", border: "1px solid rgba(156,154,146,0.2)" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(247,246,242,0.12)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(247,246,242,0.5)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(156,154,146,0.12)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(156,154,146,0.2)"; }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="#9c9a92" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#f7f6f2] transition-colors"/>
+              </svg>
+            </a>
+
+            {/* TikTok */}
+            <a
+              href="#"
+              aria-label="TikTok"
+              className="group flex items-center justify-center rounded-full transition-all duration-300"
+              style={{ width: 38, height: 38, background: "rgba(156,154,146,0.12)", border: "1px solid rgba(156,154,146,0.2)" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(247,246,242,0.12)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(247,246,242,0.5)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(156,154,146,0.12)"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(156,154,146,0.2)"; }}
+            >
+              <svg width="16" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" stroke="#9c9a92" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#f7f6f2] transition-colors"/>
+              </svg>
+            </a>
           </div>
         </div>
 

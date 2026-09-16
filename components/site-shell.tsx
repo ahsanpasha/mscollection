@@ -6,7 +6,13 @@ import { type ReactNode, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-const navLinks = [
+interface NavLinkItem {
+  label: string;
+  href: string;
+  highlight?: boolean;
+}
+
+const navLinks: readonly NavLinkItem[] = [
   { label: "WOMEN", href: "/women" },
   { label: "MEN", href: "/men" },
   { label: "NEW ARRIVALS", href: "/new-arrivals" },
@@ -16,7 +22,7 @@ const navLinks = [
   { label: "SALE", href: "/sale", highlight: true },
   { label: "OUR STORY", href: "/about" },
   { label: "CONTACT", href: "/contact" },
-] as const;
+];
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);

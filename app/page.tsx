@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Compass, ShieldCheck, Truck, RotateCcw, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowRight, Compass, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ProductCard, SectionTitle } from "@/components/shop";

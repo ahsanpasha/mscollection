@@ -11,23 +11,23 @@ import { products } from "@/lib/catalog";
 const heroSlides = [
   {
     img: "/assets/02.png",
-    tag: "New Collection",
+    tag: "New Collection 2026",
     heading: "Women's Shalwar Kameez",
-    sub: "Beautiful stitched and unstitched suits for every occasion — casual, formal and festive.",
+    sub: "Beautiful stitched and unstitched suits crafted in premium lawn, cotton & silk for every occasion.",
     cta: { label: "Shop Women", href: "/women" },
   },
   {
-    img: "/assets/04  .png",
-    tag: "Stitched Suits",
-    heading: "Ready to Wear",
-    sub: "Fully stitched shalwar kameez in premium fabrics. Just pick your size and you're ready.",
+    img: "/assets/04.png",
+    tag: "Stitched & Ready To Wear",
+    heading: "Ready To Wear Luxury",
+    sub: "Fully stitched shalwar kameez with intricate embroidery and flawless tailoring.",
     cta: { label: "Shop Stitched", href: "/stitched" },
   },
   {
     img: "/assets/03.png",
-    tag: "Men's Collection",
-    heading: "Men's Shalwar Kameez",
-    sub: "Classic and modern shalwar kameez for men — perfect for everyday wear and special occasions.",
+    tag: "Men's Kurta & Kameez",
+    heading: "Men's Ethnic Collection",
+    sub: "Classic and modern shalwar kameez for men — tailored for comfort and timeless dignity.",
     cta: { label: "Shop Men", href: "/men" },
   },
 ];
@@ -36,9 +36,9 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<"all" | "women" | "men" | "festive">("all");
   const [slide, setSlide] = useState(0);
 
-  /* Auto advance every 4 seconds */
+  /* Auto advance every 5 seconds */
   useEffect(() => {
-    const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 4000);
+    const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
     return () => clearInterval(t);
   }, []);
 
@@ -55,58 +55,114 @@ export default function HomePage() {
 
   const current = heroSlides[slide];
 
+  const nextSlide = () => setSlide((s) => (s + 1) % heroSlides.length);
+  const prevSlide = () => setSlide((s) => (s - 1 + heroSlides.length) % heroSlides.length);
+
   return (
     <main className="overflow-hidden">
 
       {/* ── Hero Carousel ─────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[88vh] items-center justify-center overflow-hidden" style={{ background: "#161513" }}>
-        {/* Slides */}
+      <section className="relative flex min-h-[85vh] lg:min-h-[90vh] items-center justify-center overflow-hidden" style={{ background: "#0f0e0d" }}>
+        {/* Slides with Ken Burns zoom effect */}
         {heroSlides.map((s, i) => (
-          <img
+          <div
             key={i}
-            src={s.img}
-            alt={s.heading}
-            className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000"
-            style={{ opacity: i === slide ? 0.72 : 0, zIndex: i === slide ? 1 : 0 }}
-          />
+            className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: i === slide ? 1 : 0, zIndex: i === slide ? 1 : 0 }}
+          >
+            <img
+              src={s.img}
+              alt={s.heading}
+              className={`h-full w-full object-cover object-center transition-transform duration-[6000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
+                }`}
+            />
+          </div>
         ))}
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.4) 100%)" }} />
 
-        {/* Text content */}
-        <div className="page-shell relative z-20 py-24 text-center">
+        {/* Sophisticated Dark Gradient overlays for depth */}
+        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to top, rgba(15,14,13,0.92) 0%, rgba(15,14,13,0.45) 45%, rgba(15,14,13,0.55) 100%)" }} />
+        <div className="absolute inset-0 z-10" style={{ background: "radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.5) 100%)" }} />
+
+        {/* Next / Prev Navigation Buttons */}
+        <button
+          onClick={prevSlide}
+          aria-label="Previous Slide"
+          className="absolute left-4 lg:left-8 z-30 hidden sm:flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/80 transition-all duration-300 hover:scale-110 hover:border-gold hover:bg-black/50 hover:text-gold"
+          style={{ backdropFilter: "blur(6px)" }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
+        </button>
+        <button
+          onClick={nextSlide}
+          aria-label="Next Slide"
+          className="absolute right-4 lg:right-8 z-30 hidden sm:flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/80 transition-all duration-300 hover:scale-110 hover:border-gold hover:bg-black/50 hover:text-gold"
+          style={{ backdropFilter: "blur(6px)" }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+        </button>
+
+        {/* Text Content */}
+        <div className="page-shell relative z-20 py-20 lg:py-28 text-center">
           <div className="mx-auto max-w-4xl">
-            <span className="mb-5 inline-flex items-center gap-2 border border-white/30 px-4 py-1.5 text-[11px] uppercase tracking-[0.26em] text-white/95 transition-all duration-700" style={{ background: "rgba(0,0,0,0.45)" }}>
-              MS Collection · {current.tag}
+            {/* Tag Badge */}
+            <span
+              className="mb-6 inline-flex items-center gap-2 rounded-full border px-5 py-1.5 text-[11px] uppercase tracking-[0.28em] font-medium transition-all duration-700 shadow-lg"
+              style={{ background: "rgba(20,19,18,0.7)", borderColor: "rgba(184,151,90,0.5)", color: "#dfc187", backdropFilter: "blur(8px)" }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+              MS COLLECTION · {current.tag}
             </span>
-            <h1 className="font-display text-5xl font-normal leading-[1.06] text-white transition-all duration-700 sm:text-6xl md:text-7xl lg:text-8xl">
+
+            {/* Heading */}
+            <h1 className="font-display text-4xl font-normal leading-[1.08] text-white transition-all duration-700 sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-md">
               {current.heading}
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/90 transition-all duration-700 sm:text-lg">
+
+            {/* Subtitle */}
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-stone-200 transition-all duration-700 sm:text-lg lg:text-xl">
               {current.sub}
             </p>
+
+            {/* Call to Actions */}
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Button asChild variant="luxury" size="lg" className="px-8" style={{ background: "#fff", color: "#000" }}>
-                <Link href={current.cta.href}>{current.cta.label}</Link>
+              <Button asChild variant="luxury" size="lg" className="px-8 shadow-xl hover:scale-105 transition-transform" style={{ background: "#b8975a", color: "#ffffff" }}>
+                <Link href={current.cta.href} className="flex items-center gap-2">
+                  {current.cta.label} <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
-              <Button asChild variant="luxury-outline" size="lg" className="px-8 border-white text-white hover:bg-white hover:text-black">
-                <Link href="/collections" className="flex items-center gap-2">
-                  All Collections <ArrowRight className="h-4 w-4" />
+              <Button asChild variant="luxury-outline" size="lg" className="px-8 border-white/40 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-sm">
+                <Link href="/collections">
+                  Explore Collections
                 </Link>
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Dot indicators */}
-        <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+        {/* Slide Counter & Progress Bar */}
+        <div className="absolute bottom-6 left-6 lg:left-12 z-20 hidden md:flex items-center gap-3 text-xs uppercase tracking-widest text-stone-300 font-mono">
+          <span style={{ color: "#b8975a" }}>0{slide + 1}</span>
+          <div className="h-[2px] w-12 bg-white/20 overflow-hidden rounded-full">
+            <div
+              className="h-full bg-gold transition-all duration-500 ease-out"
+              style={{ width: `${((slide + 1) / heroSlides.length) * 100}%` }}
+            />
+          </div>
+          <span>0{heroSlides.length}</span>
+        </div>
+
+        {/* Dot Indicators */}
+        <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2.5 items-center">
           {heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setSlide(i)}
               aria-label={`Slide ${i + 1}`}
               className="h-2 rounded-full transition-all duration-300"
-              style={{ width: i === slide ? "28px" : "8px", background: i === slide ? "#fff" : "rgba(255,255,255,0.4)" }}
+              style={{
+                width: i === slide ? "32px" : "8px",
+                background: i === slide ? "#b8975a" : "rgba(255,255,255,0.3)",
+              }}
             />
           ))}
         </div>
@@ -431,7 +487,7 @@ export default function HomePage() {
                 <div className="flex gap-1">
                   {Array.from({ length: t.rating }).map((_, i) => (
                     <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#b8975a" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
                   ))}
                 </div>
@@ -455,8 +511,8 @@ export default function HomePage() {
                   </div>
                   <div className="ml-auto">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="rgba(184,151,90,0.3)" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
-                      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+                      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+                      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
                     </svg>
                   </div>
                 </div>
@@ -469,7 +525,7 @@ export default function HomePage() {
             <div className="flex gap-1">
               {Array.from({ length: 5 }).map((_, i) => (
                 <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill="#b8975a" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
               ))}
             </div>

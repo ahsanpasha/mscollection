@@ -7,28 +7,25 @@ import { Button } from "@/components/ui/button";
 import { ProductCard, SectionTitle } from "@/components/shop";
 import { products } from "@/lib/catalog";
 
-/* ── Hero carousel images ──────────────────────────────────────────────── */
+/* ── Hero carousel images - Exact Nishat Style ──────────────────────────── */
 const heroSlides = [
   {
-    img: "/assets/02.png",
-    tag: "New Collection 2026",
-    heading: "Women's Shalwar Kameez",
-    sub: "Beautiful stitched and unstitched suits crafted in premium lawn, cotton & silk for every occasion.",
-    cta: { label: "Shop Women", href: "/women" },
+    img: "/assets/03.png",
+    tag: "CROSS SEASON EDIT",
+    title: "MEN",
+    cta: { label: "SHOP NOW", href: "/men" },
   },
   {
     img: "/assets/04.png",
-    tag: "Stitched & Ready To Wear",
-    heading: "Ready To Wear Luxury",
-    sub: "Fully stitched shalwar kameez with intricate embroidery and flawless tailoring.",
-    cta: { label: "Shop Stitched", href: "/stitched" },
+    tag: "CROSS SEASON EDIT",
+    title: "WOMEN STITCHED",
+    cta: { label: "SHOP NOW", href: "/stitched" },
   },
   {
-    img: "/assets/03.png",
-    tag: "Men's Kurta & Kameez",
-    heading: "Men's Ethnic Collection",
-    sub: "Classic and modern shalwar kameez for men — tailored for comfort and timeless dignity.",
-    cta: { label: "Shop Men", href: "/men" },
+    img: "/assets/02.png",
+    tag: "CROSS SEASON EDIT",
+    title: "WOMEN UNSTITCHED",
+    cta: { label: "SHOP NOW", href: "/unstitched" },
   },
 ];
 
@@ -36,9 +33,9 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<"all" | "women" | "men" | "festive">("all");
   const [slide, setSlide] = useState(0);
 
-  /* Auto advance every 5 seconds */
+  /* Auto advance every 6 seconds */
   useEffect(() => {
-    const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
+    const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 6000);
     return () => clearInterval(t);
   }, []);
 
@@ -55,15 +52,12 @@ export default function HomePage() {
 
   const current = heroSlides[slide];
 
-  const nextSlide = () => setSlide((s) => (s + 1) % heroSlides.length);
-  const prevSlide = () => setSlide((s) => (s - 1 + heroSlides.length) % heroSlides.length);
-
   return (
     <main className="overflow-hidden">
 
-      {/* ── Hero Carousel ─────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[85vh] lg:min-h-[90vh] items-center justify-center overflow-hidden" style={{ background: "#0f0e0d" }}>
-        {/* Slides with Ken Burns zoom effect */}
+      {/* ── Hero Carousel Section - Exact Nishat Linen Style ──────────────── */}
+      <section className="relative h-screen min-h-[600px] w-full flex items-end justify-start overflow-hidden" style={{ background: "#0a0908" }}>
+        {/* Carousel Background Images */}
         {heroSlides.map((s, i) => (
           <div
             key={i}
@@ -72,97 +66,54 @@ export default function HomePage() {
           >
             <img
               src={s.img}
-              alt={s.heading}
-              className={`h-full w-full object-cover object-center transition-transform duration-[6000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
-                }`}
+              alt={s.title}
+              className={`h-full w-full object-cover object-center transition-transform duration-[7000ms] ease-out ${
+                i === slide ? "scale-105" : "scale-100"
+              }`}
             />
           </div>
         ))}
 
-        {/* Sophisticated Dark Gradient overlays for depth */}
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to top, rgba(15,14,13,0.92) 0%, rgba(15,14,13,0.45) 45%, rgba(15,14,13,0.55) 100%)" }} />
-        <div className="absolute inset-0 z-10" style={{ background: "radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.5) 100%)" }} />
+        {/* Soft dark vignette gradient overlay for text readability */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-tr from-black/80 via-black/25 to-transparent" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-        {/* Next / Prev Navigation Buttons */}
-        <button
-          onClick={prevSlide}
-          aria-label="Previous Slide"
-          className="absolute left-4 lg:left-8 z-30 hidden sm:flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/80 transition-all duration-300 hover:scale-110 hover:border-gold hover:bg-black/50 hover:text-gold"
-          style={{ backdropFilter: "blur(6px)" }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
-        </button>
-        <button
-          onClick={nextSlide}
-          aria-label="Next Slide"
-          className="absolute right-4 lg:right-8 z-30 hidden sm:flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/80 transition-all duration-300 hover:scale-110 hover:border-gold hover:bg-black/50 hover:text-gold"
-          style={{ backdropFilter: "blur(6px)" }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
-        </button>
-
-        {/* Text Content */}
-        <div className="page-shell relative z-20 py-20 lg:py-28 text-center">
-          <div className="mx-auto max-w-4xl">
-            {/* Tag Badge */}
-            <span
-              className="mb-6 inline-flex items-center gap-2 rounded-full border px-5 py-1.5 text-[11px] uppercase tracking-[0.28em] font-medium transition-all duration-700 shadow-lg"
-              style={{ background: "rgba(20,19,18,0.7)", borderColor: "rgba(184,151,90,0.5)", color: "#dfc187", backdropFilter: "blur(8px)" }}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-              MS COLLECTION · {current.tag}
-            </span>
-
-            {/* Heading */}
-            <h1 className="font-display text-4xl font-normal leading-[1.08] text-white transition-all duration-700 sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-md">
-              {current.heading}
-            </h1>
-
-            {/* Subtitle */}
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-stone-200 transition-all duration-700 sm:text-lg lg:text-xl">
-              {current.sub}
+        {/* Bottom-Left Text Content (Refined Nishat Screenshot Style) */}
+        <div className="relative z-20 page-shell pb-14 md:pb-20 lg:pb-24">
+          <div className="max-w-2xl text-left space-y-2">
+            {/* Small Eyebrow Tag */}
+            <p className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-medium text-stone-300 drop-shadow-md">
+              {current.tag}
             </p>
 
-            {/* Call to Actions */}
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Button asChild variant="luxury" size="lg" className="px-8 shadow-xl hover:scale-105 transition-transform" style={{ background: "#b8975a", color: "#ffffff" }}>
-                <Link href={current.cta.href} className="flex items-center gap-2">
-                  {current.cta.label} <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="luxury-outline" size="lg" className="px-8 border-white/40 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-sm">
-                <Link href="/collections">
-                  Explore Collections
-                </Link>
-              </Button>
+            {/* Display Title - Fitted Single Line */}
+            <h1 className="font-display text-lg sm:text-2xl md:text-3xl lg:text-4xl font-light text-white uppercase tracking-[0.12em] leading-snug drop-shadow-lg">
+              {current.title}
+            </h1>
+
+            {/* Action Underline Link */}
+            <div className="pt-2">
+              <Link
+                href={current.cta.href}
+                className="inline-flex items-center gap-2.5 text-[11px] sm:text-xs uppercase tracking-[0.22em] font-semibold text-white hover:text-[#dfc187] border-b border-white hover:border-[#dfc187] pb-0.5 transition-all duration-300 group drop-shadow-md"
+              >
+                <span>{current.cta.label}</span>
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Slide Counter & Progress Bar */}
-        <div className="absolute bottom-6 left-6 lg:left-12 z-20 hidden md:flex items-center gap-3 text-xs uppercase tracking-widest text-stone-300 font-mono">
-          <span style={{ color: "#b8975a" }}>0{slide + 1}</span>
-          <div className="h-[2px] w-12 bg-white/20 overflow-hidden rounded-full">
-            <div
-              className="h-full bg-gold transition-all duration-500 ease-out"
-              style={{ width: `${((slide + 1) / heroSlides.length) * 100}%` }}
-            />
-          </div>
-          <span>0{heroSlides.length}</span>
-        </div>
-
-        {/* Dot Indicators */}
-        <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2.5 items-center">
+        {/* Slide Indicators on Bottom Right */}
+        <div className="absolute bottom-14 right-6 md:right-14 z-20 flex items-center gap-2.5">
           {heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setSlide(i)}
               aria-label={`Slide ${i + 1}`}
-              className="h-2 rounded-full transition-all duration-300"
-              style={{
-                width: i === slide ? "32px" : "8px",
-                background: i === slide ? "#b8975a" : "rgba(255,255,255,0.3)",
-              }}
+              className={`h-1 transition-all duration-300 rounded-full ${
+                i === slide ? "w-8 bg-[#dfc187]" : "w-2.5 bg-white/40 hover:bg-white"
+              }`}
             />
           ))}
         </div>

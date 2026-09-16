@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { StoreProvider } from "@/lib/store";
 import { SiteShell } from "@/components/site-shell";
@@ -10,9 +11,29 @@ const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-display",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+const instrumentSans = localFont({
+  src: [
+    {
+      path: "../public/Fonts/InstrumentSans-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/Fonts/InstrumentSans-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/Fonts/InstrumentSans-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/Fonts/InstrumentSans-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-sans",
 });
 
@@ -34,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorantGaramond.variable} ${plusJakartaSans.variable}`}>
+    <html lang="en" className={`${instrumentSans.variable}`}>
       <body className="antialiased">
         <StoreProvider>
           <SiteShell>{children}</SiteShell>

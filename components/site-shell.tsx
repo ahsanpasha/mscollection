@@ -2,115 +2,135 @@
 
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import { type ReactNode } from "react";
+import { type ReactNode, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const navLinks = [
-  ["Women", "/women"],
-  ["Men", "/men"],
-  ["New Arrivals", "/new-arrivals"],
-  ["Collections", "/collections"],
-  ["Stitched", "/stitched"],
-  ["Unstitched", "/unstitched"],
-  ["Sale", "/sale"],
-  ["Our Story", "/about"],
-  ["Contact", "/contact"],
+  { label: "WOMEN", href: "/women" },
+  { label: "MEN", href: "/men" },
+  { label: "NEW ARRIVALS", href: "/new-arrivals" },
+  { label: "COLLECTIONS", href: "/collections" },
+  { label: "STITCHED", href: "/stitched" },
+  { label: "UNSTITCHED", href: "/unstitched" },
+  { label: "SALE", href: "/sale", highlight: true },
+  { label: "OUR STORY", href: "/about" },
+  { label: "CONTACT", href: "/contact" },
 ] as const;
 
 export function SiteShell({ children }: { children: ReactNode }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#fcfbf8", color: "#1c1b18" }}>
-      {/* 100% Solid Opaque Sticky Navbar */}
+      {/* Refined Nishat Linen Style 100% Transparent Header */}
       <header
-        style={{ background: "#ffffff", borderBottom: "1px solid #e8e5dc" }}
-        className="sticky top-0 z-40 w-full shadow-sm"
+        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 ${
+          isScrolled
+            ? "bg-[#141312]/92 backdrop-blur-md border-b border-white/10 py-3 shadow-xl"
+            : "bg-gradient-to-b from-black/70 via-black/30 to-transparent py-4 lg:py-5"
+        }`}
       >
-        <div className="page-shell flex h-14 items-center justify-between gap-4 lg:h-16">
-          {/* Logo */}
-          <Link href="/" aria-label="MS Collection home" className="flex items-center shrink-0">
-            <img
-              src="/assets/logo.jpg"
-              alt="MS Collection"
-              className="object-contain"
-              style={{ height: 42, width: "auto", maxWidth: 160 }}
-            />
+        <div className="page-shell flex items-center justify-between gap-4">
+          {/* Refined Brand Logo - Small Gold Serif Text */}
+          <Link href="/" aria-label="MS Collection home" className="flex items-center shrink-0 group">
+            <span className="font-display text-lg lg:text-xl font-bold tracking-[0.2em] text-[#dfc187] group-hover:text-white transition-colors drop-shadow-md">
+              MS COLLECTION
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
-            {navLinks.map(([label, href]) => (
+          {/* Desktop Nav Links - Refined Small Nishat Text Style */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
+            {navLinks.map((item) => (
               <Link
-                key={href}
-                href={href}
-                className="nav-link"
+                key={item.href}
+                href={item.href}
+                className={`text-[10px] xl:text-[11px] uppercase tracking-[0.18em] transition-all duration-300 drop-shadow-sm relative group ${
+                  item.highlight
+                    ? "text-[#dfc187] font-bold hover:text-white"
+                    : "text-white/90 font-medium hover:text-[#dfc187]"
+                }`}
               >
-                {label}
+                <span>{item.label}</span>
+                {/* Thin hover underline */}
+                <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
           </nav>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Hamburger Trigger */}
           <div className="flex items-center lg:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="h-10 w-10">
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              {/* Solid white side drawer */}
-              <SheetContent
-                side="left"
-                className="w-[85%] max-w-sm p-0 border-r border-[#e8e5dc]"
-                style={{ background: "#ffffff" }}
-              >
-                <SheetTitle className="sr-only">Main Menu</SheetTitle>
-                <SheetDescription className="sr-only">Browse MS Collection</SheetDescription>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Open navigation menu"
+                    className="h-10 w-10 text-white hover:bg-white/10"
+                  >
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                {/* Dark Luxury Drawer */}
+                <SheetContent
+                  side="left"
+                  className="w-[85%] max-w-sm p-0 border-r border-white/10 flex flex-col justify-between"
+                  style={{ background: "#141312", color: "#ffffff" }}
+                >
+                  <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                  <SheetDescription className="sr-only">Browse MS Collection</SheetDescription>
 
-                <div className="border-b border-[#e8e5dc] p-6" style={{ background: "#ffffff" }}>
-                  <img
-                    src="/assets/logo.jpg"
-                    alt="MS Collection"
-                    className="object-contain"
-                    style={{ height: 48, width: "auto", maxWidth: 180 }}
-                  />
-                  <p className="text-[11px] uppercase tracking-widest mt-2" style={{ color: "#73716b" }}>
-                    Luxury Pakistani Boutique
-                  </p>
-                </div>
+                  <div>
+                    <div className="border-b border-white/10 p-6" style={{ background: "#141312" }}>
+                      <span className="font-display text-2xl font-bold tracking-[0.2em] text-[#dfc187]">
+                        MS COLLECTION
+                      </span>
+                      <p className="text-[10px] uppercase tracking-widest mt-1 text-stone-400">
+                        Luxury Pakistani Boutique
+                      </p>
+                    </div>
 
-                <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#ffffff" }}>
-                  {navLinks.map(([label, href]) => (
-                    <SheetClose asChild key={href}>
-                      <Link
-                        href={href}
-                        className="border-b py-3.5 font-display text-xl hover:text-gold transition-colors block"
-                        style={{ borderColor: "#e8e5dc", color: "#1c1b18" }}
-                      >
-                        {label}
-                      </Link>
-                    </SheetClose>
-                  ))}
+                    <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
+                      {navLinks.map((item) => (
+                        <SheetClose asChild key={item.href}>
+                          <Link
+                            href={item.href}
+                            className="border-b border-white/10 py-3.5 font-display text-lg tracking-widest flex items-center justify-between text-white hover:text-[#dfc187] transition-colors"
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        </SheetClose>
+                      ))}
+                    </div>
+                  </div>
 
-                  <div className="pt-6 pb-10">
+                  <div className="p-6 border-t border-white/10" style={{ background: "#141312" }}>
                     <a
                       href="https://wa.me/923000000000?text=Hello%20MS%20Collection,%20I%20would%20like%20to%20place%20an%20order."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2.5 w-full text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-colors"
+                      className="flex items-center justify-center gap-2.5 w-full text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-transform active:scale-95 shadow-md"
                       style={{ background: "#25D366" }}
                     >
                       <WAIcon />
                       Order on WhatsApp
                     </a>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                </SheetContent>
+              </Sheet>
+            </div>
         </div>
       </header>
 
+      {/* Main Content Area */}
       <div className="flex-1">{children}</div>
       <Footer />
       <FloatingWhatsApp />

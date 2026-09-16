@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Compass, ShieldCheck, Truck, RotateCcw } from "lucide-react";
+import { ArrowRight, Compass, ShieldCheck, Truck, RotateCcw, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ProductCard, SectionTitle } from "@/components/shop";
@@ -411,126 +411,6 @@ export default function HomePage() {
                 <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Testimonials ───────────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28" style={{ background: "#141312" }}>
-        <div className="page-shell">
-          <div className="text-center mb-14">
-            <p className="eyebrow" style={{ color: "#b8975a" }}>Customer Love</p>
-            <h2 className="font-display text-4xl md:text-5xl mt-2" style={{ color: "#f7f6f2" }}>
-              What Our Customers Say
-            </h2>
-            <p className="mt-4 text-sm leading-7 max-w-xl mx-auto" style={{ color: "#9c9a92" }}>
-              Thousands of happy customers across Pakistan trust MS Collection for their everyday and special occasion wear.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                name: "Ayesha Malik",
-                city: "Lahore",
-                initials: "AM",
-                rating: 5,
-                review: "Bohot hi khubsoorat suit mila! Fabric bilkul soft hai aur stitching perfect. Dono colors bilkul wahi nikal ke aayi jo pictures mein dikh rahi thi. Definitely order karungi dobara.",
-              },
-              {
-                name: "Sana Tariq",
-                city: "Karachi",
-                initials: "ST",
-                rating: 5,
-                review: "Maine eid ke liye 2 suits order kiye the — dono time pe aa gaye aur packaging bhi bohot achi thi. Quality se bilkul satisfy hun. MS Collection ne dil jeet liya!",
-              },
-              {
-                name: "Fatima Noor",
-                city: "Islamabad",
-                initials: "FN",
-                rating: 5,
-                review: "Unstitched fabric ka quality dekh ke hairan reh gayi. Lawn itna smooth aur colors itne vibrant hain. Tailor ne bhi tarif ki. Bohot hi behtareen experience raha.",
-              },
-              {
-                name: "Zara Ahmed",
-                city: "Faisalabad",
-                initials: "ZA",
-                rating: 5,
-                review: "Delivery bahut fast thi — sirf 2 din mein suit ghar aa gaya. Size bilkul sahi tha aur style bhi ekdum trendy. Apni saheli ko bhi recommend kar chuki hun!",
-              },
-              {
-                name: "Hira Baig",
-                city: "Multan",
-                initials: "HB",
-                rating: 5,
-                review: "WhatsApp pe order karna bohot asan tha. Team ne sab kuch clear explain kiya. Suit mila toh bas dil khush ho gaya — fabric, cut, sab kuch first class tha.",
-              },
-              {
-                name: "Nadia Hussain",
-                city: "Rawalpindi",
-                initials: "NH",
-                rating: 5,
-                review: "Pehli baar order kiya tha thoda dar ke — lekin ab toh regular customer hun! Quality kabhi disappoint nahi karti. Har baar naya suit lena accha lagta hai MS Collection se.",
-              },
-            ].map((t) => (
-              <div
-                key={t.name}
-                className="flex flex-col gap-4 p-6 transition-all duration-300"
-                style={{
-                  background: "rgba(247,246,242,0.04)",
-                  border: "1px solid rgba(247,246,242,0.1)",
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.background = "rgba(247,246,242,0.08)"; (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(184,151,90,0.4)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.background = "rgba(247,246,242,0.04)"; (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(247,246,242,0.1)"; }}
-              >
-                {/* Stars */}
-                <div className="flex gap-1">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#b8975a" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  ))}
-                </div>
-
-                {/* Review text */}
-                <p className="flex-1 text-sm leading-7" style={{ color: "#c8c5bb" }}>
-                  &ldquo;{t.review}&rdquo;
-                </p>
-
-                {/* Customer info */}
-                <div className="flex items-center gap-3 pt-2" style={{ borderTop: "1px solid rgba(247,246,242,0.08)" }}>
-                  <div
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold"
-                    style={{ background: "rgba(184,151,90,0.2)", color: "#b8975a" }}
-                  >
-                    {t.initials}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold" style={{ color: "#f7f6f2" }}>{t.name}</p>
-                    <p className="text-[11px] uppercase tracking-wider" style={{ color: "#9c9a92" }}>{t.city}</p>
-                  </div>
-                  <div className="ml-auto">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="rgba(184,151,90,0.3)" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
-                      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom rating summary */}
-          <div className="mt-12 flex flex-col items-center gap-2 text-center">
-            <div className="flex gap-1">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill="#b8975a" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              ))}
-            </div>
-            <p className="font-display text-3xl" style={{ color: "#f7f6f2" }}>4.9 / 5</p>
-            <p className="text-xs uppercase tracking-widest" style={{ color: "#9c9a92" }}>Based on 500+ verified orders</p>
           </div>
         </div>
       </section>

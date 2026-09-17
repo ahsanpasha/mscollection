@@ -10,19 +10,19 @@ import { products } from "@/lib/catalog";
 /* ── Hero carousel images - Exact Nishat Style ──────────────────────────── */
 const heroSlides = [
   {
-    img: "/assets/03.png",
+    img: "/images/home/hero-men.png",
     tag: "CROSS SEASON EDIT",
     title: "MEN",
     cta: { label: "SHOP NOW", href: "/men" },
   },
   {
-    img: "/assets/04.png",
+    img: "/images/home/hero-women-stitched.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN STITCHED",
     cta: { label: "SHOP NOW", href: "/stitched" },
   },
   {
-    img: "/assets/02.png",
+    img: "/images/home/hero-women-unstitched.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN UNSTITCHED",
     cta: { label: "SHOP NOW", href: "/unstitched" },
@@ -130,7 +130,7 @@ export default function HomePage() {
 
           <div className="grid gap-6 md:grid-cols-3">
             <Link href="/stitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/assets/editorial-heritage.jpg" alt="Stitched Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+              <img src="/images/editorial/heritage.jpg" alt="Stitched Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Women's</p>
@@ -142,7 +142,7 @@ export default function HomePage() {
             </Link>
 
             <Link href="/unstitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/assets/editorial-hero.jpg" alt="Unstitched Fabric" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+              <img src="/images/editorial/hero.jpg" alt="Unstitched Fabric" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Women's</p>
@@ -154,7 +154,7 @@ export default function HomePage() {
             </Link>
 
             <Link href="/men" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/assets/editorial-men.jpg" alt="Men's Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+              <img src="/images/editorial/men.jpg" alt="Men's Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Men's</p>
@@ -186,7 +186,7 @@ export default function HomePage() {
 
           {/* Wide editorial banner */}
           <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
-            <img src="/assets/editorial-heritage.jpg" alt="Women's Collection" className="h-full w-full object-cover" />
+            <img src="/images/editorial/heritage.jpg" alt="Women's Collection" className="h-full w-full object-cover" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)" }} />
             <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-md">
               <p className="eyebrow text-gold">New Arrivals</p>
@@ -221,7 +221,7 @@ export default function HomePage() {
 
           {/* Wide editorial banner */}
           <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
-            <img src="/assets/editorial-men.jpg" alt="Men's Collection" className="h-full w-full object-cover" style={{ filter: "brightness(0.88)" }} />
+            <img src="/images/editorial/men.jpg" alt="Men's Collection" className="h-full w-full object-cover" style={{ filter: "brightness(0.88)" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 65%, transparent 100%)" }} />
             <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-md">
               <p className="eyebrow text-gold">Men's Wear</p>
@@ -285,7 +285,7 @@ export default function HomePage() {
         <div className="page-shell">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
-              <img src="/assets/editorial-heritage.jpg" alt="MS Collection Quality" className="h-full w-full object-cover" />
+              <img src="/images/editorial/heritage.jpg" alt="MS Collection Quality" className="h-full w-full object-cover" />
               <div className="absolute bottom-6 left-6 right-6 border border-white/30 bg-black/60 p-5 text-white" style={{ backdropFilter: "blur(8px)" }}>
                 <p className="eyebrow text-gold">Our Promise</p>
                 <p className="font-display text-2xl">Quality Fabrics, Beautiful Work</p>

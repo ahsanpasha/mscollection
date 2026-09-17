@@ -18,14 +18,14 @@ export type Product = {
   popular?: number;
 };
 
-const womenImages: [string, string, string] = [
-  "/assets/editorial-heritage.jpg",
-  "/assets/editorial-hero.jpg",
-  "/assets/editorial-heritage.jpg",
+const womenImages: readonly string[] = [
+  "/images/editorial/heritage.jpg",
+  "/images/editorial/hero.jpg",
+  "/images/editorial/heritage.jpg",
 ];
-const menImages: [string, string] = [
-  "/assets/editorial-men.jpg",
-  "/assets/editorial-men.jpg",
+const menImages: readonly string[] = [
+  "/images/editorial/men.jpg",
+  "/images/editorial/men.jpg",
 ];
 
 export const products: Product[] = [

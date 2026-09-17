@@ -41,7 +41,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <header
         className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 ${
           isScrolled
-            ? "bg-[#141312]/92 backdrop-blur-md border-b border-white/10 py-3 shadow-xl"
+            ? "bg-[#141312]/92 backdrop-blur-md py-3 shadow-xl"
             : "bg-gradient-to-b from-black/70 via-black/30 to-transparent py-4 lg:py-5"
         }`}
       >

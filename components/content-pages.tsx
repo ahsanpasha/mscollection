@@ -27,7 +27,7 @@ export function CollectionsPage() {
           <Link href={i % 2 ? "/men" : "/women"} key={n} className="group">
             <div className="aspect-[4/5] overflow-hidden bg-secondary">
               <img
-                src={i % 2 ? "/assets/editorial-men.jpg" : "/assets/editorial-heritage.jpg"}
+                src={i % 2 ? "/images/editorial/men.jpg" : "/images/editorial/heritage.jpg"}
                 alt={`${n} collection`}
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]"
               />
@@ -331,7 +331,7 @@ export function StoryPage() {
   return (
     <main>
       <div className="story-hero">
-        <img src="/assets/editorial-heritage.jpg" alt="MS Collection heritage craftsmanship" />
+        <img src="/images/editorial/heritage.jpg" alt="MS Collection heritage craftsmanship" />
         <div>
           <p className="eyebrow text-inverse-muted">Our Story</p>
           <h1>
@@ -348,7 +348,7 @@ export function StoryPage() {
           copy="We create enduring Pakistani dress through a dialogue between heritage craft and modern life."
         />
         <div className="mt-16 grid gap-12 md:grid-cols-2 md:items-center">
-          <img src="/assets/editorial-men.jpg" alt="MS Collection modern menswear" className="aspect-[4/5] w-full object-cover" />
+          <img src="/images/editorial/men.jpg" alt="MS Collection modern menswear" className="aspect-[4/5] w-full object-cover" />
           <div className="max-w-xl md:pl-10">
             {[
               ["Our Philosophy", "Buy less, choose beautifully, and return often to pieces made with intention."],

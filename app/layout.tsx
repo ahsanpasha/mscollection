@@ -1,8 +1,9 @@
- import type { Metadata } from "next";
+import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { StoreProvider } from "@/lib/store";
 import { SiteShell } from "@/components/site-shell";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 const instrumentSans = localFont({
   src: [
@@ -62,7 +63,9 @@ export default function RootLayout({
     <html lang="en" className={`${instrumentSans.variable} ${instrumentSansDisplay.variable}`}>
       <body className="antialiased">
         <StoreProvider>
-          <SiteShell>{children}</SiteShell>
+          <SmoothScroll>
+            <SiteShell>{children}</SiteShell>
+          </SmoothScroll>
         </StoreProvider>
       </body>
     </html>

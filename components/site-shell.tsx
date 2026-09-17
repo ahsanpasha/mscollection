@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, ShoppingBag } from "lucide-react";
 import { type ReactNode, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { useStore } from "@/lib/store";
 
 // Simple links (no dropdown)
 const simpleNavLinks = [
@@ -38,6 +39,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [isScrolled, setIsScrolled] = useState(false);
+  const { bag } = useStore();
+  const cartCount = bag.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,49 +72,66 @@ export function SiteShell({ children }: { children: ReactNode }) {
             />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
-            {/* Women with dropdown (click does not navigate, only shows dropdown) */}
-            <div className="relative group">
-              <button
-                type="button"
-                onClick={(e) => e.preventDefault()}
-                className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative inline-flex items-center gap-1 cursor-pointer bg-transparent border-none p-0"
-              >
-                <span>WOMEN</span>
-                <svg width="8" height="5" viewBox="0 0 8 5" fill="none" className="opacity-70 transition-transform duration-300 group-hover:rotate-180">
-                  <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
-              </button>
-              {/* Dropdown */}
-              <div className="absolute left-0 top-full mt-3 w-40 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
-                <div className="py-1" style={{ background: "#141312", border: "1px solid rgba(255,255,255,0.1)" }}>
-                  {womenLinks.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-5 py-3 text-[10px] xl:text-[11px] uppercase tracking-[0.18em] text-white/80 hover:text-[#dfc187] hover:bg-white/5 transition-all duration-200"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+          {/* Right Action Controls (Nav & Shopping Bag Icon) */}
+          <div className="flex items-center gap-4 xl:gap-7">
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
+              {/* Women with dropdown (click does not navigate, only shows dropdown) */}
+              <div className="relative group">
+                <button
+                  type="button"
+                  onClick={(e) => e.preventDefault()}
+                  className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative inline-flex items-center gap-1 cursor-pointer bg-transparent border-none p-0"
+                >
+                  <span>WOMEN</span>
+                  <svg width="8" height="5" viewBox="0 0 8 5" fill="none" className="opacity-70 transition-transform duration-300 group-hover:rotate-180">
+                    <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
+                </button>
+                {/* Dropdown */}
+                <div className="absolute left-0 top-full mt-3 w-40 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+                  <div className="py-1" style={{ background: "#141312", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    {womenLinks.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-5 py-3 text-[10px] xl:text-[11px] uppercase tracking-[0.18em] text-white/80 hover:text-[#dfc187] hover:bg-white/5 transition-all duration-200"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Simple nav links */}
-            {simpleNavLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative group"
-              >
-                <span>{item.label}</span>
-                <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
-          </nav>
+              {/* Simple nav links */}
+              {simpleNavLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative group"
+                >
+                  <span>{item.label}</span>
+                  <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
+                </Link>
+              ))}
+            </nav>
+
+            {/* Shopping Bag Icon Badge Link */}
+            <Link
+              href="/cart"
+              aria-label="View Shopping Bag"
+              className="relative flex items-center justify-center text-white hover:text-[#dfc187] transition-colors p-1.5 rounded-full hover:bg-white/5"
+            >
+              <ShoppingBag className="h-5 w-5 md:h-6 md:w-6" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-[#dfc187] text-[10px] font-bold text-[#141312] shadow-md animate-pulse">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </div>
 
           {/* Mobile Hamburger Trigger */}
           <div className="flex items-center lg:hidden">

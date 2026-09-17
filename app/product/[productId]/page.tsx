@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ShieldCheck, Truck, RotateCcw, MessageSquare } from "lucide-react";
+import { ShieldCheck, Truck, RotateCcw, MessageSquare, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/shop";
 import { colorValue, formatPrice, products } from "@/lib/catalog";
+import { useStore } from "@/lib/store";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -31,6 +32,14 @@ export default function ProductDetailPage() {
 function ProductView({ product }: { product: (typeof products)[0] }) {
   const [selectedColor, setSelectedColor] = useState(product.colors[0] || "");
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] || "M");
+  const { addToBag } = useStore();
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addToBag(product, selectedColor, selectedSize);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2500);
+  };
 
   const related = products
     .filter((p) => p.id !== product.id && (p.gender === product.gender || p.collection === product.collection))
@@ -47,10 +56,10 @@ function ProductView({ product }: { product: (typeof products)[0] }) {
 
 Please confirm availability and delivery details.`;
 
-  const whatsappUrl = `https://wa.me/923000000000?text=${encodeURIComponent(whatsappText)}`;
+  const whatsappUrl = `https://wa.me/923425389685?text=${encodeURIComponent(whatsappText)}`;
 
   const tailorWhatsAppText = `Hello MS Collection! I have a sizing / custom tailoring query about *${product.name}* (SKU: ${product.sku}).`;
-  const tailorWhatsAppUrl = `https://wa.me/923000000000?text=${encodeURIComponent(tailorWhatsAppText)}`;
+  const tailorWhatsAppUrl = `https://wa.me/923425389685?text=${encodeURIComponent(tailorWhatsAppText)}`;
 
   return (
     <main className="page-shell py-10 md:py-16">
@@ -152,8 +161,8 @@ Please confirm availability and delivery details.`;
                     type="button"
                     onClick={() => setSelectedSize(s)}
                     className={`min-w-14 h-11 border px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all ${selectedSize === s
-                        ? "border-primary bg-primary text-primary-foreground shadow-xs"
-                        : "border-border bg-background text-foreground hover:border-primary hover:bg-secondary/40"
+                      ? "border-primary bg-primary text-primary-foreground shadow-xs"
+                      : "border-border bg-background text-foreground hover:border-primary hover:bg-secondary/40"
                       }`}
                   >
                     {s}
@@ -162,19 +171,31 @@ Please confirm availability and delivery details.`;
               </div>
             </div>
 
-            {/* WhatsApp Ordering CTAs */}
+            {/* Shopping Bag & WhatsApp Ordering CTAs */}
             <div className="space-y-3 pt-4">
+              <Button
+                type="button"
+                onClick={handleAddToCart}
+                variant="luxury"
+                size="lg"
+                className={`w-full flex items-center justify-center gap-2 py-4 text-xs uppercase tracking-widest font-semibold transition-all cursor-pointer ${added ? "bg-[#25D366] text-white hover:bg-[#20ba59]" : ""
+                  }`}
+              >
+                <ShoppingBag className="h-4 w-4" />
+                {added ? "Added to Shopping Bag ✓" : "Add to Shopping Bag"}
+              </Button>
+
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white py-4 px-6 text-sm uppercase tracking-widest font-semibold hover:bg-[#20ba59] active:scale-[0.99] transition-all shadow-md"
+                className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold hover:bg-[#20ba59] active:scale-[0.99] transition-all shadow-md"
               >
-                <WhatsAppIcon className="h-5 w-5 fill-white" />
-                Order on WhatsApp · {formatPrice(product.price)}
+                <WhatsAppIcon className="h-4 w-4 fill-white" />
+                Order via WhatsApp
               </a>
 
-              <a
+              {/* <a
                 href={tailorWhatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -182,7 +203,7 @@ Please confirm availability and delivery details.`;
               >
                 <MessageSquare className="h-4 w-4" />
                 Inquire Sizing / Custom Tailoring
-              </a>
+              </a> */}
             </div>
 
             {/* Fabric and SKU Info */}

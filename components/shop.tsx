@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, SlidersHorizontal, ShoppingBag } from "lucide-react";
 import { useMemo, useState } from "react";
 import { colorValue, formatPrice, products, type Product } from "@/lib/catalog";
+import { useStore } from "@/lib/store";
 
 export function SectionTitle({ eyebrow, title, copy }: { eyebrow?: string; title: string; copy?: string }) {
   return (
@@ -16,6 +17,17 @@ export function SectionTitle({ eyebrow, title, copy }: { eyebrow?: string; title
 }
 
 export function ProductCard({ product }: { product: Product }) {
+  const { addToBag } = useStore();
+  const [added, setAdded] = useState(false);
+
+  const handleQuickAdd = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToBag(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
   return (
     <article className="product-card group min-w-0">
       <Link href={`/product/${product.id}`} className="block">
@@ -80,6 +92,22 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
       </Link>
+
+      {/* Quick Add to Bag Button */}
+      <div className="mt-3">
+        <button
+          type="button"
+          onClick={handleQuickAdd}
+          className={`w-full py-2 px-3 text-[10px] uppercase tracking-[0.16em] font-semibold transition-all duration-300 border flex items-center justify-center gap-1.5 cursor-pointer ${
+            added
+              ? "bg-[#25D366] border-[#25D366] text-white"
+              : "bg-secondary/60 border-border text-foreground hover:bg-[#141312] hover:text-white hover:border-[#141312]"
+          }`}
+        >
+          <ShoppingBag className="h-3 w-3" />
+          <span>{added ? "Added to Bag ✓" : "Add to Bag"}</span>
+        </button>
+      </div>
     </article>
   );
 }

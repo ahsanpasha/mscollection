@@ -76,6 +76,53 @@ export function CartPage() {
   const { bag, removeFromBag, updateQuantity } = useStore();
   const subtotal = bag.reduce((n, x) => n + x.product.price * x.quantity, 0);
 
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [customerCity, setCustomerCity] = useState("");
+
+  const handleWhatsAppCheckout = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const delivery = subtotal === 0 ? 0 : subtotal >= 10000 ? 0 : 350;
+    const totalAmount = subtotal + delivery;
+
+    const itemsList = bag
+      .map(
+        (x, i) =>
+          `${i + 1}. *${x.product.name}*\n   Size: ${x.size} | Colour: ${x.color} | Qty: ${x.quantity}\n   Price: ${formatPrice(x.product.price * x.quantity)}`
+      )
+      .join("\n\n");
+
+    const customerDetails = `*Customer Details:*
+• Name: ${customerName.trim()}
+• Phone: ${customerPhone.trim()}
+• Email: ${customerEmail.trim() || "N/A"}
+• Address: ${customerAddress.trim()}
+• City: ${customerCity.trim()}`;
+
+    const whatsappText = `Hello MS Collection! I would like to place an order:
+
+${customerDetails}
+
+-------------------------
+*Ordered Items:*
+${itemsList}
+
+-------------------------
+*Total Items:* ${bag.reduce((sum, item) => sum + item.quantity, 0)}
+*Subtotal:* ${formatPrice(subtotal)}
+*Delivery:* ${delivery === 0 ? "Complimentary" : formatPrice(delivery)}
+*Grand Total:* ${formatPrice(totalAmount)}
+-------------------------
+
+Please confirm my order and share payment/delivery timeline.`;
+
+    const whatsappUrl = `https://wa.me/923425389685?text=${encodeURIComponent(whatsappText)}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <main className="page-shell py-14">
       <h1 className="font-display text-5xl md:text-7xl">Shopping Bag</h1>
@@ -87,7 +134,8 @@ export function CartPage() {
           label="Continue shopping"
         />
       ) : (
-        <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_380px]">
+        <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_420px]">
+          {/* Left Column: Bag Items List */}
           <div>
             {bag.map((x) => (
               <div
@@ -136,11 +184,99 @@ export function CartPage() {
               </div>
             ))}
           </div>
-          <div>
+
+          {/* Right Column: Order Summary & WhatsApp Delivery Form */}
+          <div className="space-y-6">
             <OrderSummary subtotal={subtotal} />
-            <Button asChild variant="luxury" size="lg" className="mt-6 w-full">
-              <Link href="/checkout">Proceed to Checkout</Link>
-            </Button>
+
+            {/* Customer Delivery Details Form */}
+            <div className="bg-secondary/40 p-6 border border-border">
+              <h2 className="font-display text-2xl mb-1">Delivery Information</h2>
+              <p className="text-xs text-muted-foreground mb-5">
+                Fill in your details to send your complete order directly to WhatsApp.
+              </p>
+
+              <form onSubmit={handleWhatsAppCheckout} className="space-y-4">
+                <label className="field-label">
+                  Full Name *
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Ayesha Khan"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    className="field"
+                  />
+                </label>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="field-label">
+                    Phone / WhatsApp *
+                    <input
+                      type="tel"
+                      required
+                      placeholder="e.g. 03001234567"
+                      value={customerPhone}
+                      onChange={(e) => setCustomerPhone(e.target.value)}
+                      className="field"
+                    />
+                  </label>
+
+                  <label className="field-label">
+                    Email (Optional)
+                    <input
+                      type="email"
+                      placeholder="e.g. ayesha@gmail.com"
+                      value={customerEmail}
+                      onChange={(e) => setCustomerEmail(e.target.value)}
+                      className="field"
+                    />
+                  </label>
+                </div>
+
+                <label className="field-label">
+                  Delivery Address *
+                  <input
+                    type="text"
+                    required
+                    placeholder="House No, Street Address, Area"
+                    value={customerAddress}
+                    onChange={(e) => setCustomerAddress(e.target.value)}
+                    className="field"
+                  />
+                </label>
+
+                <label className="field-label">
+                  City *
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Lahore, Karachi, Islamabad"
+                    value={customerCity}
+                    onChange={(e) => setCustomerCity(e.target.value)}
+                    className="field"
+                  />
+                </label>
+
+                <Button
+                  type="submit"
+                  className="mt-4 flex items-center justify-center gap-2.5 w-full text-white font-semibold py-4 px-4 text-xs uppercase tracking-widest shadow-md hover:opacity-95 transition-opacity border-none cursor-pointer"
+                  style={{ background: "#25D366" }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 32 32"
+                    width="18"
+                    height="18"
+                    fill="white"
+                    aria-hidden="true"
+                  >
+                    <path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.736 5.469 2.027 7.774L.055 32l8.425-2.21A15.94 15.94 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0Zm0 29.333a13.278 13.278 0 0 1-6.773-1.856l-.486-.288-5.004 1.313 1.334-4.876-.317-.502A13.245 13.245 0 0 1 2.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333Zm7.27-9.878c-.398-.2-2.353-1.161-2.718-1.294-.365-.133-.63-.2-.896.2-.265.398-1.029 1.294-1.261 1.56-.232.265-.465.298-.863.1-.398-.2-1.681-.619-3.2-1.974-1.183-1.054-1.982-2.356-2.214-2.754-.232-.398-.025-.613.174-.811.179-.178.398-.465.597-.697.2-.232.265-.398.398-.664.133-.265.066-.497-.033-.697-.1-.2-.896-2.16-1.228-2.957-.323-.776-.651-.67-.896-.683l-.763-.013c-.265 0-.697.1-1.062.497-.365.398-1.394 1.362-1.394 3.321 0 1.959 1.428 3.852 1.627 4.118.2.265 2.81 4.29 6.807 6.017.951.41 1.694.655 2.272.839.955.305 1.825.262 2.513.159.767-.114 2.353-.962 2.685-1.891.332-.929.332-1.725.232-1.891-.099-.166-.364-.265-.763-.465Z" />
+                  </svg>
+                  Send Order on WhatsApp
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       )}
@@ -262,8 +398,8 @@ export function CheckoutPage() {
                     {idx === 0
                       ? "Pay in cash when your parcel arrives at your doorstep"
                       : idx === 1
-                      ? "Direct transfer via Raast/IBFT; invoice sent after checkout"
-                      : "Secure Visa / MasterCard online payment gateway"}
+                        ? "Direct transfer via Raast/IBFT; invoice sent after checkout"
+                        : "Secure Visa / MasterCard online payment gateway"}
                   </small>
                 </span>
               </label>
@@ -514,9 +650,8 @@ export function TrackOrderPage() {
                 ].map((s, idx) => (
                   <div key={s.title} className="flex flex-col items-center gap-2">
                     <div
-                      className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs ${
-                        s.done ? "bg-primary text-primary-foreground" : "border border-border text-muted-foreground"
-                      }`}
+                      className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs ${s.done ? "bg-primary text-primary-foreground" : "border border-border text-muted-foreground"
+                        }`}
                     >
                       {idx + 1}
                     </div>
@@ -576,17 +711,15 @@ export function SizeGuidePage() {
         <div className="mt-8 flex gap-4 border-b border-border">
           <button
             onClick={() => setTab("women")}
-            className={`pb-3 text-sm font-medium uppercase tracking-widest transition-all ${
-              tab === "women" ? "border-b-2 border-primary text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
-            }`}
+            className={`pb-3 text-sm font-medium uppercase tracking-widest transition-all ${tab === "women" ? "border-b-2 border-primary text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
+              }`}
           >
             Women&apos;s Prêt &amp; Formals
           </button>
           <button
             onClick={() => setTab("men")}
-            className={`pb-3 text-sm font-medium uppercase tracking-widest transition-all ${
-              tab === "men" ? "border-b-2 border-primary text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
-            }`}
+            className={`pb-3 text-sm font-medium uppercase tracking-widest transition-all ${tab === "men" ? "border-b-2 border-primary text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
+              }`}
           >
             Men&apos;s Kurtas &amp; Waistcoats
           </button>
@@ -725,9 +858,8 @@ export function FaqsPage() {
               >
                 <span>{f.q}</span>
                 <ChevronDown
-                  className={`h-5 w-5 shrink-0 transition-transform duration-300 ${
-                    openIdx === idx ? "rotate-180 text-gold" : "text-muted-foreground"
-                  }`}
+                  className={`h-5 w-5 shrink-0 transition-transform duration-300 ${openIdx === idx ? "rotate-180 text-gold" : "text-muted-foreground"
+                    }`}
                 />
               </button>
               {openIdx === idx && (
@@ -944,18 +1076,16 @@ export function AccountPage() {
               <button
                 type="button"
                 onClick={() => setMode("signin")}
-                className={`flex-1 pb-2 text-xs uppercase tracking-widest font-semibold ${
-                  mode === "signin" ? "border-b-2 border-primary text-foreground" : "text-muted-foreground"
-                }`}
+                className={`flex-1 pb-2 text-xs uppercase tracking-widest font-semibold ${mode === "signin" ? "border-b-2 border-primary text-foreground" : "text-muted-foreground"
+                  }`}
               >
                 Sign In
               </button>
               <button
                 type="button"
                 onClick={() => setMode("register")}
-                className={`flex-1 pb-2 text-xs uppercase tracking-widest font-semibold ${
-                  mode === "register" ? "border-b-2 border-primary text-foreground" : "text-muted-foreground"
-                }`}
+                className={`flex-1 pb-2 text-xs uppercase tracking-widest font-semibold ${mode === "register" ? "border-b-2 border-primary text-foreground" : "text-muted-foreground"
+                  }`}
               >
                 Create Account
               </button>

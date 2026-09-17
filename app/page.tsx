@@ -10,23 +10,23 @@ import { products } from "@/lib/catalog";
 /* ── Hero carousel images - Exact Nishat Style ──────────────────────────── */
 const heroSlides = [
   {
-    img: "/images/home/hero-men.png",
-    tag: "CROSS SEASON EDIT",
-    title: "MEN",
-    cta: { label: "SHOP NOW", href: "/men" },
-  },
-  {
-    img: "/images/home/hero-women-stitched.png",
+    img: "/images/home/womenbanner2.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN STITCHED",
     cta: { label: "SHOP NOW", href: "/stitched" },
   },
   {
-    img: "/images/home/hero-women-unstitched.png",
+    img: "/images/home/womenbanner1.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN UNSTITCHED",
     cta: { label: "SHOP NOW", href: "/unstitched" },
   },
+  {
+    img: "/images/home/menbanner.png",
+    tag: "CROSS SEASON EDIT",
+    title: "MEN",
+    cta: { label: "SHOP NOW", href: "/men" },
+  }
 ];
 
 export default function HomePage() {
@@ -67,15 +67,14 @@ export default function HomePage() {
             <img
               src={s.img}
               alt={s.title}
-              className={`h-full w-full object-cover object-center transition-transform duration-[7000ms] ease-out ${
-                i === slide ? "scale-105" : "scale-100"
-              }`}
+              className={`h-full w-full object-cover object-center transition-transform duration-[7000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
+                }`}
             />
           </div>
         ))}
 
         {/* Soft dark vignette gradient overlay for text readability */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-tr from-black/80 via-black/25 to-transparent" />
+        {/* <div className="absolute inset-0 z-10 bg-gradient-to-tr from-black/80 via-black/25 to-transparent" /> */}
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
         {/* Bottom-Left Text Content (Refined Nishat Screenshot Style) */}
@@ -105,15 +104,14 @@ export default function HomePage() {
         </div>
 
         {/* Slide Indicators on Bottom Right */}
-        <div className="absolute bottom-14 right-6 md:right-14 z-20 flex items-center gap-2.5">
+        <div className="absolute bottom-24 md:bottom-28 right-6 md:right-14 z-20 flex items-center gap-2.5">
           {heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setSlide(i)}
               aria-label={`Slide ${i + 1}`}
-              className={`h-1 transition-all duration-300 rounded-full ${
-                i === slide ? "w-8 bg-[#dfc187]" : "w-2.5 bg-white/40 hover:bg-white"
-              }`}
+              className={`h-1 transition-all duration-300 rounded-full ${i === slide ? "w-8 bg-[#dfc187]" : "w-2.5 bg-white/40 hover:bg-white"
+                }`}
             />
           ))}
         </div>

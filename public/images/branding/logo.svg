@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" fill="none">
+  <line x1="0" y1="4" x2="260" y2="4" stroke="white" stroke-width="0.6" opacity="0.4"/>
+  <text
+    x="130"
+    y="34"
+    font-family="Instrument Sans, Arial, sans-serif"
+    font-size="22"
+    font-weight="700"
+    letter-spacing="14"
+    fill="white"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >MS COLLECTION</text>
+  <line x1="0" y1="56" x2="260" y2="56" stroke="white" stroke-width="0.6" opacity="0.4"/>
+</svg>

@@ -6,23 +6,32 @@ import { type ReactNode, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-interface NavLinkItem {
-  label: string;
-  href: string;
-  highlight?: boolean;
-}
-
-const navLinks: readonly NavLinkItem[] = [
-  { label: "WOMEN", href: "/women" },
+// Simple links (no dropdown)
+const simpleNavLinks = [
   { label: "MEN", href: "/men" },
-  { label: "NEW ARRIVALS", href: "/new-arrivals" },
   { label: "COLLECTIONS", href: "/collections" },
+  { label: "OUR STORY", href: "/about" },
+  { label: "FAQs", href: "/faqs" },
+  { label: "CONTACT", href: "/contact" },
+] as const;
+
+// Women dropdown sub-links
+const womenLinks = [
   { label: "STITCHED", href: "/stitched" },
   { label: "UNSTITCHED", href: "/unstitched" },
-  { label: "SALE", href: "/sale", highlight: true },
+] as const;
+
+// Mobile all links flat (for drawer)
+const mobileNavLinks = [
+  { label: "WOMEN", href: "/women" },
+  { label: "Stitched", href: "/stitched", sub: true },
+  { label: "Unstitched", href: "/unstitched", sub: true },
+  { label: "MEN", href: "/men" },
+  { label: "COLLECTIONS", href: "/collections" },
   { label: "OUR STORY", href: "/about" },
+  { label: "FAQs", href: "/faqs" },
   { label: "CONTACT", href: "/contact" },
-];
+] as const;
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,32 +48,59 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex flex-col" style={{ background: "#fcfbf8", color: "#1c1b18" }}>
       {/* Refined Nishat Linen Style 100% Transparent Header */}
       <header
-        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 py-4 lg:py-5 ${isScrolled
-            ? "bg-[#141312] shadow-xl"
-            : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 py-2 lg:py-3 ${isScrolled
+          ? "bg-[#141312] shadow-xl"
+          : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
           }`}
       >
         <div className="page-shell flex items-center justify-between gap-4">
-          {/* Refined Brand Logo - Small Gold Serif Text */}
+          {/* Logo */}
           <Link href="/" aria-label="MS Collection home" className="flex items-center shrink-0 group">
-            <span className="font-display text-lg lg:text-xl font-bold tracking-[0.2em] text-[#dfc187] group-hover:text-white transition-colors drop-shadow-md">
-              MS COLLECTION
-            </span>
+            <img
+              src="/images/home/logo.svg"
+              alt="MS Collection"
+              className="h-14 w-auto object-contain transition-opacity duration-300 group-hover:opacity-75"
+            />
           </Link>
 
-          {/* Desktop Nav Links - Refined Small Nishat Text Style */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
-            {navLinks.map((item) => (
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
+            {/* Women with dropdown */}
+            <div className="relative group">
+              <Link
+                href="/women"
+                className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative inline-flex items-center gap-1"
+              >
+                <span>WOMEN</span>
+                <svg width="8" height="5" viewBox="0 0 8 5" fill="none" className="opacity-70 transition-transform duration-300 group-hover:rotate-180">
+                  <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
+              </Link>
+              {/* Dropdown */}
+              <div className="absolute left-0 top-full mt-3 w-40 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+                <div className="py-1" style={{ background: "#141312", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  {womenLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-5 py-3 text-[10px] xl:text-[11px] uppercase tracking-[0.18em] text-white/80 hover:text-[#dfc187] hover:bg-white/5 transition-all duration-200"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Simple nav links */}
+            {simpleNavLinks.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-[10px] xl:text-[11px] uppercase tracking-[0.18em] transition-all duration-300 drop-shadow-sm relative group ${item.highlight
-                    ? "text-[#dfc187] font-bold hover:text-white"
-                    : "text-white/90 font-medium hover:text-[#dfc187]"
-                  }`}
+                className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative group"
               >
                 <span>{item.label}</span>
-                {/* Thin hover underline */}
                 <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
@@ -94,20 +130,25 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
                 <div>
                   <div className="border-b border-white/10 p-6" style={{ background: "#141312" }}>
-                    <span className="font-display text-2xl font-bold tracking-[0.2em] text-[#dfc187]">
-                      MS COLLECTION
-                    </span>
-                    <p className="text-[10px] uppercase tracking-widest mt-1 text-stone-400">
+                    <img
+                      src="/images/home/logo.svg"
+                      alt="MS Collection"
+                      className="h-10 w-auto object-contain"
+                    />
+                    <p className="text-[10px] uppercase tracking-widest mt-2 text-stone-400">
                       Luxury Pakistani Boutique
                     </p>
                   </div>
 
                   <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
-                    {navLinks.map((item) => (
+                    {mobileNavLinks.map((item) => (
                       <SheetClose asChild key={item.href}>
                         <Link
                           href={item.href}
-                          className="border-b border-white/10 py-3.5 font-display text-lg tracking-widest flex items-center justify-between text-white hover:text-[#dfc187] transition-colors"
+                          className={`border-b border-white/10 flex items-center justify-between text-white hover:text-[#dfc187] transition-colors ${"sub" in item && item.sub
+                            ? "py-2.5 pl-5 text-sm tracking-widest text-white/60 hover:text-[#dfc187]"
+                            : "py-3.5 font-display text-lg tracking-widest"
+                            }`}
                         >
                           <span>{item.label}</span>
                         </Link>
@@ -149,9 +190,11 @@ function Footer() {
       <div className="page-shell grid gap-10 py-12 md:grid-cols-3">
         {/* Brand column */}
         <div>
-          <span className="font-display text-2xl font-bold tracking-widest" style={{ color: "#f7f6f2" }}>
-            MS COLLECTION
-          </span>
+          <img
+            src="/images/home/logo.svg"
+            alt="MS Collection"
+            className="h-12 w-auto object-contain"
+          />
           <p className="mt-4 max-w-xs text-sm leading-7" style={{ color: "#9c9a92" }}>
             Beautiful shalwar kameez for women and men — stitched and unstitched, for every occasion.
           </p>

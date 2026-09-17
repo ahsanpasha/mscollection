@@ -147,8 +147,9 @@
 }
 
 .editorial-banner h1 {
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-family: var(--font-sans, "Instrument Sans", sans-serif);
   font-size: 2.75rem;
+  font-weight: 700;
   line-height: 1.15;
   margin-top: 0.5rem;
 }
@@ -198,8 +199,9 @@
 }
 
 .story-hero h1 {
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-family: var(--font-sans, "Instrument Sans", sans-serif);
   font-size: 3rem;
+  font-weight: 700;
   line-height: 1.1;
   margin-top: 0.75rem;
 }

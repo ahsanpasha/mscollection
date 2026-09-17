@@ -122,9 +122,8 @@ Please confirm availability and delivery details.`;
                       type="button"
                       title={c}
                       onClick={() => setSelectedColor(c)}
-                      className={`h-9 w-9 rounded-full border-2 p-0.5 transition-all ${
-                        selectedColor === c ? "border-primary scale-110 shadow-xs" : "border-border hover:scale-105"
-                      }`}
+                      className={`h-9 w-9 rounded-full border-2 p-0.5 transition-all ${selectedColor === c ? "border-primary scale-110 shadow-xs" : "border-border hover:scale-105"
+                        }`}
                     >
                       <span
                         className="block h-full w-full rounded-full border border-black/10"
@@ -152,11 +151,10 @@ Please confirm availability and delivery details.`;
                     key={s}
                     type="button"
                     onClick={() => setSelectedSize(s)}
-                    className={`min-w-14 h-11 border px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all ${
-                      selectedSize === s
+                    className={`min-w-14 h-11 border px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all ${selectedSize === s
                         ? "border-primary bg-primary text-primary-foreground shadow-xs"
                         : "border-border bg-background text-foreground hover:border-primary hover:bg-secondary/40"
-                    }`}
+                      }`}
                   >
                     {s}
                   </button>

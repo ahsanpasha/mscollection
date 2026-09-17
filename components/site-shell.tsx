@@ -39,11 +39,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex flex-col" style={{ background: "#fcfbf8", color: "#1c1b18" }}>
       {/* Refined Nishat Linen Style 100% Transparent Header */}
       <header
-        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 ${
-          isScrolled
-            ? "bg-[#141312]/92 backdrop-blur-md py-3 shadow-xl"
-            : "bg-gradient-to-b from-black/70 via-black/30 to-transparent py-4 lg:py-5"
-        }`}
+        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 py-4 lg:py-5 ${isScrolled
+            ? "bg-[#141312] shadow-xl"
+            : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+          }`}
       >
         <div className="page-shell flex items-center justify-between gap-4">
           {/* Refined Brand Logo - Small Gold Serif Text */}
@@ -59,11 +58,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-[10px] xl:text-[11px] uppercase tracking-[0.18em] transition-all duration-300 drop-shadow-sm relative group ${
-                  item.highlight
+                className={`text-[10px] xl:text-[11px] uppercase tracking-[0.18em] transition-all duration-300 drop-shadow-sm relative group ${item.highlight
                     ? "text-[#dfc187] font-bold hover:text-white"
                     : "text-white/90 font-medium hover:text-[#dfc187]"
-                }`}
+                  }`}
               >
                 <span>{item.label}</span>
                 {/* Thin hover underline */}
@@ -74,65 +72,65 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
           {/* Mobile Hamburger Trigger */}
           <div className="flex items-center lg:hidden">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label="Open navigation menu"
-                    className="h-10 w-10 text-white hover:bg-white/10"
-                  >
-                    <Menu className="h-6 w-6" />
-                  </Button>
-                </SheetTrigger>
-                {/* Dark Luxury Drawer */}
-                <SheetContent
-                  side="left"
-                  className="w-[85%] max-w-sm p-0 border-r border-white/10 flex flex-col justify-between"
-                  style={{ background: "#141312", color: "#ffffff" }}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Open navigation menu"
+                  className="h-10 w-10 text-white hover:bg-white/10"
                 >
-                  <SheetTitle className="sr-only">Main Menu</SheetTitle>
-                  <SheetDescription className="sr-only">Browse MS Collection</SheetDescription>
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              {/* Dark Luxury Drawer */}
+              <SheetContent
+                side="left"
+                className="w-[85%] max-w-sm p-0 border-r border-white/10 flex flex-col justify-between"
+                style={{ background: "#141312", color: "#ffffff" }}
+              >
+                <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                <SheetDescription className="sr-only">Browse MS Collection</SheetDescription>
 
-                  <div>
-                    <div className="border-b border-white/10 p-6" style={{ background: "#141312" }}>
-                      <span className="font-display text-2xl font-bold tracking-[0.2em] text-[#dfc187]">
-                        MS COLLECTION
-                      </span>
-                      <p className="text-[10px] uppercase tracking-widest mt-1 text-stone-400">
-                        Luxury Pakistani Boutique
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
-                      {navLinks.map((item) => (
-                        <SheetClose asChild key={item.href}>
-                          <Link
-                            href={item.href}
-                            className="border-b border-white/10 py-3.5 font-display text-lg tracking-widest flex items-center justify-between text-white hover:text-[#dfc187] transition-colors"
-                          >
-                            <span>{item.label}</span>
-                          </Link>
-                        </SheetClose>
-                      ))}
-                    </div>
+                <div>
+                  <div className="border-b border-white/10 p-6" style={{ background: "#141312" }}>
+                    <span className="font-display text-2xl font-bold tracking-[0.2em] text-[#dfc187]">
+                      MS COLLECTION
+                    </span>
+                    <p className="text-[10px] uppercase tracking-widest mt-1 text-stone-400">
+                      Luxury Pakistani Boutique
+                    </p>
                   </div>
 
-                  <div className="p-6 border-t border-white/10" style={{ background: "#141312" }}>
-                    <a
-                      href="https://wa.me/923000000000?text=Hello%20MS%20Collection,%20I%20would%20like%20to%20place%20an%20order."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2.5 w-full text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-transform active:scale-95 shadow-md"
-                      style={{ background: "#25D366" }}
-                    >
-                      <WAIcon />
-                      Order on WhatsApp
-                    </a>
+                  <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
+                    {navLinks.map((item) => (
+                      <SheetClose asChild key={item.href}>
+                        <Link
+                          href={item.href}
+                          className="border-b border-white/10 py-3.5 font-display text-lg tracking-widest flex items-center justify-between text-white hover:text-[#dfc187] transition-colors"
+                        >
+                          <span>{item.label}</span>
+                        </Link>
+                      </SheetClose>
+                    ))}
                   </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+                </div>
+
+                <div className="p-6 border-t border-white/10" style={{ background: "#141312" }}>
+                  <a
+                    href="https://wa.me/923425389685?text=Hello%20MS%20Collection,%20I%20would%20like%20to%20place%20an%20order."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2.5 w-full text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-transform active:scale-95 shadow-md"
+                    style={{ background: "#25D366" }}
+                  >
+                    <WAIcon />
+                    Order on WhatsApp
+                  </a>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 
@@ -162,7 +160,9 @@ function Footer() {
           <div className="mt-5 flex items-center gap-3">
             {/* Instagram */}
             <a
-              href="#"
+              href="https://www.instagram.com/ms.collectionofficial"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               className="group flex items-center justify-center rounded-full transition-all duration-300"
               style={{ width: 38, height: 38, background: "rgba(156,154,146,0.12)", border: "1px solid rgba(156,154,146,0.2)" }}
@@ -192,7 +192,9 @@ function Footer() {
 
             {/* TikTok */}
             <a
-              href="#"
+              href="https://www.tiktok.com/@ms.collection792"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="TikTok"
               className="group flex items-center justify-center rounded-full transition-all duration-300"
               style={{ width: 38, height: 38, background: "rgba(156,154,146,0.12)", border: "1px solid rgba(156,154,146,0.2)" }}
@@ -262,7 +264,7 @@ function FooterLinks({ title, links }: { title: string; links: readonly (readonl
 function FloatingWhatsApp() {
   return (
     <a
-      href="https://wa.me/923000000000?text=Hello%20MS%20Collection,%20I%20would%20like%20to%20enquire%20about%20your%20collection."
+      href="https://wa.me/923425389685?text=Hello%20MS%20Collection,%20I%20would%20like%20to%20enquire%20about%20your%20collection."
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Order on WhatsApp"
@@ -270,9 +272,7 @@ function FloatingWhatsApp() {
       style={{ background: "#25D366" }}
     >
       <WAIcon size={24} />
-      <span className="text-xs font-semibold uppercase tracking-wider hidden md:inline-block pr-1">
-        Order on WhatsApp
-      </span>
+
       {/* Pulsing online indicator */}
       <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />

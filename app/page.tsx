@@ -33,25 +33,47 @@ const heroSlides = [
 ];
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState<"all" | "women" | "men" | "festive">("all");
   const [slide, setSlide] = useState(0);
+  const [womenTab, setWomenTab] = useState<"stitched" | "unstitched">("stitched");
+  const [womenOffset, setWomenOffset] = useState(0);
 
-  /* Auto advance every 6 seconds */
+  /* Auto advance hero slide every 6 seconds */
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 6000);
     return () => clearInterval(t);
   }, []);
 
-  const featuredPieces = products.filter((p) => {
-    if (activeTab === "women") return p.gender === "Women";
-    if (activeTab === "men") return p.gender === "Men";
-    if (activeTab === "festive") return p.collection === "Festive";
-    return p.featured || p.newArrival;
+  /* Auto-rotate Women collection articles every 4.5 seconds */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setWomenOffset((prev) => prev + 1);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleWomenTabChange = (tab: "stitched" | "unstitched") => {
+    setWomenTab(tab);
+    setWomenOffset(0);
+  };
+
+  const allWomenProducts = products.filter((p) => p.gender === "Women");
+  const filteredWomenProducts = allWomenProducts.filter((p) => {
+    if (womenTab === "stitched") return p.category !== "Unstitched";
+    if (womenTab === "unstitched") return p.category === "Unstitched";
+    return true;
   });
 
-  const womenPieces = products.filter((p) => p.gender === "Women").slice(0, 4);
-  const menPieces = products.filter((p) => p.gender === "Men" && p.category === "Shalwar Kameez").slice(0, 4);
-  const newArrivals = products.filter((p) => p.newArrival).slice(0, 4);
+  const displayWomenPieces = (() => {
+    if (!filteredWomenProducts.length) return [];
+    const result = [];
+    const len = filteredWomenProducts.length;
+    for (let i = 0; i < Math.min(4, len); i++) {
+      result.push(filteredWomenProducts[(womenOffset + i) % len]);
+    }
+    return result;
+  })();
+
+  const menPieces = products.filter((p) => p.gender === "Men" && (p.category === "Shalwar Kameez" || p.category === "Unstitched")).slice(0, 4);
 
   const current = heroSlides[slide];
 
@@ -77,7 +99,6 @@ export default function HomePage() {
         ))}
 
         {/* Soft dark vignette gradient overlay for text readability */}
-        {/* <div className="absolute inset-0 z-10 bg-gradient-to-tr from-black/80 via-black/25 to-transparent" /> */}
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
         {/* Bottom-Left Text Content (Refined Nishat Screenshot Style) */}
@@ -172,18 +193,15 @@ export default function HomePage() {
       {/* ── Women's Section ───────────────────────────────────────────────── */}
       <section className="py-16 md:py-24" style={{ background: "#ffffff" }}>
         <div className="page-shell">
-          <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-            <div>
-              <p className="eyebrow">Women's Collection</p>
-              <h2 className="font-display text-4xl md:text-5xl">Women's Shalwar Kameez</h2>
-              <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
-                Beautiful stitched and unstitched suits in lawn, cotton, silk and more — for everyday wear and special occasions.
-              </p>
-            </div>
-
+          <div className="mb-8">
+            <p className="eyebrow">Women's Collection</p>
+            <h2 className="font-display text-4xl md:text-5xl">Women's Shalwar Kameez</h2>
+            <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+              Beautiful stitched and unstitched suits in lawn, cotton, silk and more — for everyday wear and special occasions.
+            </p>
           </div>
 
-          {/* Wide editorial banner */}
+          {/* Wide editorial banner ("Suits for Every Occasion") */}
           <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
             <img src="/images/home/womenbanner.png" alt="Women's Collection" className="h-full w-full object-cover" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)" }} />
@@ -191,13 +209,49 @@ export default function HomePage() {
               <p className="eyebrow text-gold">New Arrivals</p>
               <h3 className="font-display text-5xl leading-tight">Suits for Every Occasion</h3>
               <Button asChild variant="luxury" size="lg" className="mt-6" style={{ background: "#fff", color: "#000" }}>
-                <Link href="/women">Shop Now</Link>
+                <Link href={womenTab === "stitched" ? "/stitched" : "/unstitched"}>Shop Now</Link>
               </Button>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
-            {womenPieces.map((p) => <ProductCard key={p.id} product={p} />)}
+          {/* Stitched / Unstitched Filter Tabs placed directly below the banner */}
+          <div className="flex items-center gap-8 mb-8 border-b border-stone-200 pb-2">
+            <button
+              type="button"
+              onClick={() => handleWomenTabChange("stitched")}
+              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${
+                womenTab === "stitched"
+                  ? "text-[#b78c38] border-b-2 border-[#b78c38]"
+                  : "text-stone-500 hover:text-stone-800"
+              }`}
+            >
+              STITCHED
+            </button>
+            <button
+              type="button"
+              onClick={() => handleWomenTabChange("unstitched")}
+              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${
+                womenTab === "unstitched"
+                  ? "text-[#b78c38] border-b-2 border-[#b78c38]"
+                  : "text-stone-500 hover:text-stone-800"
+              }`}
+            >
+              UNSTITCHED
+            </button>
+          </div>
+
+          {/* Auto-rotating articles grid */}
+          <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4 transition-all duration-500">
+            {displayWomenPieces.map((p) => <ProductCard key={p.id} product={p} />)}
+          </div>
+
+          {/* View All Button for Women section */}
+          <div className="mt-12 text-center">
+            <Button asChild variant="luxury-outline" size="lg">
+              <Link href={womenTab === "stitched" ? "/stitched" : "/unstitched"}>
+                {womenTab === "stitched" ? "View All Stitched Collection" : "View All Unstitched Collection"} &rarr;
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -213,7 +267,6 @@ export default function HomePage() {
                 Classic and stylish shalwar kameez for men in quality fabrics — great for daily wear, Eid and special events.
               </p>
             </div>
-
           </div>
 
           {/* Wide editorial banner */}
@@ -231,6 +284,15 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
             {menPieces.map((p) => <ProductCard key={p.id} product={p} />)}
+          </div>
+
+          {/* View All Button for Men section */}
+          <div className="mt-12 text-center">
+            <Button asChild variant="luxury-outline" size="lg">
+              <Link href="/men">
+                View All Men's Collection &rarr;
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

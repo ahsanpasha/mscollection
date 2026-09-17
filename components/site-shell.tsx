@@ -133,11 +133,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     <img
                       src="/images/home/logo.svg"
                       alt="MS Collection"
-                      className="h-10 w-auto object-contain"
+                      className="h-16 w-auto object-contain"
                     />
-                    <p className="text-[10px] uppercase tracking-widest mt-2 text-stone-400">
-                      Luxury Pakistani Boutique
-                    </p>
+
                   </div>
 
                   <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>

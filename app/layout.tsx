@@ -42,11 +42,11 @@ const instrumentSansDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "MS Collection | Luxury Pakistani Boutique",
+  title: "MS Collection",
   description:
     "Thoughtfully crafted Pakistani silhouettes, refined fabrics and timeless style for every occasion.",
   openGraph: {
-    title: "MS Collection | Luxury Pakistani Boutique",
+    title: "MS Collection",
     description:
       "Thoughtfully crafted Pakistani silhouettes, refined fabrics and timeless style for every occasion.",
     type: "website",

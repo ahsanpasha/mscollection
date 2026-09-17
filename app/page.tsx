@@ -14,18 +14,21 @@ const heroSlides = [
     tag: "CROSS SEASON EDIT",
     title: "WOMEN STITCHED",
     cta: { label: "SHOP NOW", href: "/stitched" },
+    mobilePos: "object-[center_5%]",
   },
   {
     img: "/images/home/womenbanner1.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN UNSTITCHED",
     cta: { label: "SHOP NOW", href: "/unstitched" },
+    mobilePos: "object-[center_5%]",
   },
   {
     img: "/images/home/menbanner.png",
     tag: "CROSS SEASON EDIT",
     title: "MEN",
     cta: { label: "SHOP NOW", href: "/men" },
+    mobilePos: "object-[center_5%]",
   }
 ];
 
@@ -56,7 +59,7 @@ export default function HomePage() {
     <main className="overflow-hidden">
 
       {/* ── Hero Carousel Section - Exact Nishat Linen Style ──────────────── */}
-      <section className="relative h-screen min-h-[600px] w-full flex items-end justify-start overflow-hidden" style={{ background: "#0a0908" }}>
+      <section className="relative h-[65vh] sm:h-screen min-h-[450px] sm:min-h-[600px] w-full flex items-end justify-start overflow-hidden" style={{ background: "#0a0908" }}>
         {/* Carousel Background Images */}
         {heroSlides.map((s, i) => (
           <div
@@ -67,7 +70,7 @@ export default function HomePage() {
             <img
               src={s.img}
               alt={s.title}
-              className={`h-full w-full object-cover object-center transition-transform duration-[7000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
+              className={`h-full w-full object-cover ${s.mobilePos} md:object-center origin-top md:origin-center transition-transform duration-[7000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
                 }`}
             />
           </div>
@@ -78,7 +81,7 @@ export default function HomePage() {
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
         {/* Bottom-Left Text Content (Refined Nishat Screenshot Style) */}
-        <div className="relative z-20 page-shell pb-14 md:pb-20 lg:pb-24">
+        <div className="relative z-20 page-shell pb-8 sm:pb-20 lg:pb-24">
           <div className="max-w-2xl text-left space-y-2">
             {/* Small Eyebrow Tag */}
             <p className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-medium text-stone-300 drop-shadow-md">
@@ -104,7 +107,7 @@ export default function HomePage() {
         </div>
 
         {/* Slide Indicators on Bottom Right */}
-        <div className="absolute bottom-24 md:bottom-28 right-6 md:right-14 z-20 flex items-center gap-2.5">
+        <div className="absolute bottom-10 sm:bottom-28 right-6 md:right-14 z-20 flex items-center gap-2.5">
           {heroSlides.map((_, i) => (
             <button
               key={i}

@@ -142,32 +142,32 @@
 .editorial-banner {
   background-color: #f7f5ef;
   border-bottom: 1px solid var(--border);
-  padding: 4rem 1.5rem;
+  padding: 3rem 1.5rem;
   text-align: center;
 }
 
 .editorial-banner h1 {
   font-family: var(--font-sans, "Instrument Sans", sans-serif);
-  font-size: 2.75rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.15;
-  margin-top: 0.5rem;
+  margin-top: 0.35rem;
 }
 
 @media (min-width: 768px) {
   .editorial-banner {
-    padding: 6rem 2rem;
+    padding: 4rem 2rem;
   }
   .editorial-banner h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 }
 
 .editorial-banner p:last-child {
   max-width: 38rem;
-  margin: 1rem auto 0;
+  margin: 0.85rem auto 0;
   font-size: 0.95rem;
-  line-height: 1.7;
+  line-height: 1.65;
   color: var(--muted-foreground);
 }
 

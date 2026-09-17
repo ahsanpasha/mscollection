@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { type ReactNode, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,7 @@ const womenLinks = [
 
 // Mobile all links flat (for drawer)
 const mobileNavLinks = [
-  { label: "WOMEN", href: "/women" },
+  { label: "WOMEN", isHeader: true },
   { label: "Stitched", href: "/stitched", sub: true },
   { label: "Unstitched", href: "/unstitched", sub: true },
   { label: "MEN", href: "/men" },
@@ -34,6 +35,8 @@ const mobileNavLinks = [
 ] as const;
 
 export function SiteShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -46,12 +49,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#fcfbf8", color: "#1c1b18" }}>
-      {/* Refined Nishat Linen Style 100% Transparent Header */}
+      {/* Refined Nishat Linen Style Header - Transparent on Home, Solid Black (#141312) on other pages */}
       <header
-        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 py-2 lg:py-3 ${isScrolled
-          ? "bg-[#141312] shadow-xl"
-          : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
-          }`}
+        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 py-2 lg:py-3 ${
+          isHome
+            ? isScrolled
+              ? "bg-[#141312] shadow-xl"
+              : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+            : "bg-[#141312] shadow-xl"
+        }`}
       >
         <div className="page-shell flex items-center justify-between gap-4">
           {/* Logo */}
@@ -65,18 +71,19 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
-            {/* Women with dropdown */}
+            {/* Women with dropdown (click does not navigate, only shows dropdown) */}
             <div className="relative group">
-              <Link
-                href="/women"
-                className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative inline-flex items-center gap-1"
+              <button
+                type="button"
+                onClick={(e) => e.preventDefault()}
+                className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative inline-flex items-center gap-1 cursor-pointer bg-transparent border-none p-0"
               >
                 <span>WOMEN</span>
                 <svg width="8" height="5" viewBox="0 0 8 5" fill="none" className="opacity-70 transition-transform duration-300 group-hover:rotate-180">
                   <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
-              </Link>
+              </button>
               {/* Dropdown */}
               <div className="absolute left-0 top-full mt-3 w-40 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
                 <div className="py-1" style={{ background: "#141312", border: "1px solid rgba(255,255,255,0.1)" }}>
@@ -140,17 +147,26 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
                   <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
                     {mobileNavLinks.map((item) => (
-                      <SheetClose asChild key={item.href}>
-                        <Link
-                          href={item.href}
-                          className={`border-b border-white/10 flex items-center justify-between text-white hover:text-[#dfc187] transition-colors ${"sub" in item && item.sub
-                            ? "py-2.5 pl-5 text-sm tracking-widest text-white/60 hover:text-[#dfc187]"
-                            : "py-3.5 font-display text-lg tracking-widest"
-                            }`}
+                      "isHeader" in item && item.isHeader ? (
+                        <div
+                          key={item.label}
+                          className="border-b border-white/10 py-3 font-display text-lg tracking-widest text-[#dfc187] flex items-center justify-between"
                         >
                           <span>{item.label}</span>
-                        </Link>
-                      </SheetClose>
+                        </div>
+                      ) : (
+                        <SheetClose asChild key={"href" in item ? item.href : item.label}>
+                          <Link
+                            href={"href" in item ? item.href : "#"}
+                            className={`border-b border-white/10 flex items-center justify-between text-white hover:text-[#dfc187] transition-colors ${"sub" in item && item.sub
+                              ? "py-2.5 pl-5 text-sm tracking-widest text-white/60 hover:text-[#dfc187]"
+                              : "py-3.5 font-display text-lg tracking-widest"
+                              }`}
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        </SheetClose>
+                      )
                     ))}
                   </div>
                 </div>
@@ -174,7 +190,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </header>
 
       {/* Main Content Area */}
-      <div className="flex-1">{children}</div>
+      <div className={`flex-1 ${!isHome ? "pt-20 lg:pt-24" : ""}`}>{children}</div>
       <Footer />
       <FloatingWhatsApp />
     </div>
@@ -184,7 +200,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 /* ─── Footer ─────────────────────────────────────────────────────────────── */
 function Footer() {
   return (
-    <footer className="mt-24" style={{ background: "#141312", color: "#f7f6f2" }}>
+    <footer style={{ background: "#141312", color: "#f7f6f2" }}>
       <div className="page-shell grid gap-10 py-12 md:grid-cols-3">
         {/* Brand column */}
         <div>

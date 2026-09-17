@@ -180,9 +180,7 @@ export default function HomePage() {
                 Beautiful stitched and unstitched suits in lawn, cotton, silk and more — for everyday wear and special occasions.
               </p>
             </div>
-            <Button asChild variant="luxury-outline" size="lg">
-              <Link href="/women">Shop Women</Link>
-            </Button>
+
           </div>
 
           {/* Wide editorial banner */}
@@ -215,9 +213,7 @@ export default function HomePage() {
                 Classic and stylish shalwar kameez for men in quality fabrics — great for daily wear, Eid and special events.
               </p>
             </div>
-            <Button asChild variant="luxury-outline" size="lg">
-              <Link href="/men">Shop Men</Link>
-            </Button>
+
           </div>
 
           {/* Wide editorial banner */}
@@ -239,47 +235,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Featured Products ─────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24" style={{ background: "#ffffff" }}>
-        <div className="page-shell">
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div>
-              <p className="eyebrow">Top Picks</p>
-              <h2 className="font-display text-4xl md:text-5xl">Featured Products</h2>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                { id: "all", label: "All" },
-                { id: "women", label: "Women" },
-                { id: "men", label: "Men" },
-                { id: "festive", label: "Festive" },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${activeTab === tab.id
-                    ? "border-b-2 border-primary font-semibold text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                    }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
-            {featuredPieces.map((p) => <ProductCard key={p.id} product={p} />)}
-          </div>
-
-          <div className="mt-14 text-center">
-            <Button asChild variant="luxury-outline" size="lg">
-              <Link href="/collections">View All Products</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* ── About Section ─────────────────────────────────────────────────── */}
       <section className="py-20 md:py-28" style={{ background: "#ffffff" }}>
@@ -328,24 +283,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── New Arrivals ───────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24" style={{ background: "#ffffff" }}>
-        <div className="page-shell">
-          <SectionTitle
-            eyebrow="Just Added"
-            title="New Arrivals"
-            copy="The latest suits just added to our collection — fresh styles for this season."
-          />
-          <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
-            {newArrivals.map((p) => <ProductCard key={p.id} product={p} />)}
-          </div>
-          <div className="mt-12 text-center">
-            <Button asChild variant="luxury-outline" size="lg">
-              <Link href="/new-arrivals">See All New Arrivals</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+
 
       {/* ── Trust Pillars ───────────────────────────────────────────────────── */}
       <section className="py-16" style={{ background: "#ffffff" }}>

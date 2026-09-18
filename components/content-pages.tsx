@@ -124,9 +124,17 @@ Please confirm my order and share payment/delivery timeline.`;
   };
 
   return (
-    <main className="page-shell py-14">
-      <h1 className="font-display text-5xl md:text-7xl">Shopping Bag</h1>
-      {!bag.length ? (
+    <main>
+      <div className="editorial-banner">
+        <div>
+          <p className="eyebrow">Your Selection</p>
+          <h1>Shopping Bag</h1>
+          <p>Review your selected articles, customize your order, and proceed seamlessly.</p>
+        </div>
+      </div>
+
+      <div className="page-shell py-12">
+        {!bag.length ? (
         <Empty
           title="Your bag is empty"
           copy="Discover timeless pieces designed to be worn and remembered."
@@ -280,6 +288,7 @@ Please confirm my order and share payment/delivery timeline.`;
           </div>
         </div>
       )}
+      </div>
     </main>
   );
 }

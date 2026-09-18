@@ -214,29 +214,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Stitched / Unstitched Filter Tabs placed directly below the banner */}
-          <div className="flex items-center gap-8 mb-8 border-b border-stone-200 pb-2">
-            <button
-              type="button"
-              onClick={() => handleWomenTabChange("stitched")}
-              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${womenTab === "stitched"
-                ? "text-[#b78c38] border-b-2 border-[#b78c38]"
-                : "text-stone-500 hover:text-stone-800"
-                }`}
-            >
-              STITCHED
-            </button>
-            <button
-              type="button"
-              onClick={() => handleWomenTabChange("unstitched")}
-              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${womenTab === "unstitched"
-                ? "text-[#b78c38] border-b-2 border-[#b78c38]"
-                : "text-stone-500 hover:text-stone-800"
-                }`}
-            >
-              UNSTITCHED
-            </button>
-          </div>
 
           {/* Auto-rotating articles grid */}
           <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4 transition-all duration-500">

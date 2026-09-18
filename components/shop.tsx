@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ChevronDown, SlidersHorizontal, ShoppingBag } from "lucide-react";
 import { useMemo, useState } from "react";
-import { colorValue, formatPrice, products, type Product } from "@/lib/catalog";
+import { formatPrice, products, type Product } from "@/lib/catalog";
 import { useStore } from "@/lib/store";
 
 export function SectionTitle({ eyebrow, title, copy }: { eyebrow?: string; title: string; copy?: string }) {
@@ -58,16 +58,6 @@ export function ProductCard({ product }: { product: Product }) {
               <h3 className="mt-1 font-display text-xl leading-tight text-foreground transition-colors group-hover:text-gold truncate">
                 {product.name}
               </h3>
-            </div>
-            <div className="flex shrink-0 gap-1 pt-1.5">
-              {product.colors.slice(0, 3).map((c) => (
-                <span
-                  key={c}
-                  title={c}
-                  className="h-2.5 w-2.5 rounded-full border border-border"
-                  style={{ backgroundColor: colorValue[c] || "#ddd" }}
-                />
-              ))}
             </div>
           </div>
 

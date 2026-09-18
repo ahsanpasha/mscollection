@@ -89,7 +89,7 @@ Please confirm availability and delivery details.`;
 
       <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         {/* Main Image with smooth zoom hover */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-secondary border border-border group">
+        <div className="relative aspect-[2/3] overflow-hidden bg-secondary border border-border group">
           <img
             src={product.image}
             alt={product.name}

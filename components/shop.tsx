@@ -32,8 +32,8 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="product-card group min-w-0">
       <Link href={`/product/${product.id}`} className="block">
-        {/* Image container with subtle luxury zoom on the exact same image */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
+        {/* Image container with taller luxury portrait aspect ratio */}
+        <div className="relative aspect-[2/3] overflow-hidden bg-secondary">
           <img
             src={product.image}
             alt={product.name}
@@ -77,11 +77,10 @@ export function ProductCard({ product }: { product: Product }) {
         <button
           type="button"
           onClick={handleQuickAdd}
-          className={`w-full py-2 px-3 text-[10px] uppercase tracking-[0.16em] font-semibold transition-all duration-300 border flex items-center justify-center gap-1.5 cursor-pointer ${
-            added
+          className={`w-full py-2 px-3 text-[10px] uppercase tracking-[0.16em] font-semibold transition-all duration-300 border flex items-center justify-center gap-1.5 cursor-pointer ${added
               ? "bg-[#25D366] border-[#25D366] text-white"
               : "bg-secondary/60 border-border text-foreground hover:bg-[#141312] hover:text-white hover:border-[#141312]"
-          }`}
+            }`}
         >
           <ShoppingBag className="h-3 w-3" />
           <span>{added ? "Added to Bag ✓" : "Add to Bag"}</span>
@@ -145,14 +144,14 @@ export function CatalogPage({
   }, [gender, mode, cat, sort]);
 
   const categories = gender === "Men"
-    ? ["all", "Kurta", "Waistcoat"]
-    : ["all", "2 Piece", "3 Piece", "Formal", "Luxury"];
+    ? ["all"]
+    : ["all", "2 Piece", "3 Piece"];
 
   return (
     <main>
       <div className="editorial-banner">
         <div>
-          <p className="eyebrow">MS Collection Atelier</p>
+          <p className="eyebrow">MS Collection</p>
           <h1>{title}</h1>
           <p>{copy}</p>
         </div>
@@ -167,13 +166,12 @@ export function CatalogPage({
                 key={c}
                 type="button"
                 onClick={() => setCat(c)}
-                className={`px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
-                  cat === c
+                className={`px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${cat === c
                     ? "border-b-2 border-primary font-semibold text-primary"
                     : "text-muted-foreground hover:text-foreground"
-                }`}
+                  }`}
               >
-                {c === "all" ? "All Pieces" : c}
+                {c === "all" ? "All Articles" : c}
               </button>
             ))}
           </div>

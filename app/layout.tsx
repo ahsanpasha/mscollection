@@ -46,6 +46,11 @@ export const metadata: Metadata = {
   title: "MS Collection",
   description:
     "Thoughtfully crafted Pakistani silhouettes, refined fabrics and timeless style for every occasion.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   openGraph: {
     title: "MS Collection",
     description:

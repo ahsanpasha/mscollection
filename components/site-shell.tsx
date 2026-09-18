@@ -139,26 +139,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
                   <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
                     {mobileNavLinks.map((item) => (
-                      "isHeader" in item && item.isHeader ? (
-                        <div
-                          key={item.label}
-                          className="border-b border-white/10 py-3 font-display text-lg tracking-widest text-[#dfc187] flex items-center justify-between"
+                      <SheetClose asChild key={item.href}>
+                        <Link
+                          href={item.href}
+                          className="border-b border-white/10 py-3.5 font-display text-lg tracking-widest flex items-center justify-between text-white hover:text-[#dfc187] transition-colors"
                         >
                           <span>{item.label}</span>
-                        </div>
-                      ) : (
-                        <SheetClose asChild key={"href" in item ? item.href : item.label}>
-                          <Link
-                            href={"href" in item ? item.href : "#"}
-                            className={`border-b border-white/10 flex items-center justify-between text-white hover:text-[#dfc187] transition-colors ${"sub" in item && item.sub
-                              ? "py-2.5 pl-5 text-sm tracking-widest text-white/60 hover:text-[#dfc187]"
-                              : "py-3.5 font-display text-lg tracking-widest"
-                              }`}
-                          >
-                            <span>{item.label}</span>
-                          </Link>
-                        </SheetClose>
-                      )
+                        </Link>
+                      </SheetClose>
                     ))}
                   </div>
                 </div>

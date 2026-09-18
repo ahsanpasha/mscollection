@@ -151,7 +151,7 @@ export default function HomePage() {
           />
 
           <div className="grid gap-6 md:grid-cols-3">
-            <Link href="/stitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
+            <Link href="/women?type=stitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
               <img src="/images/editorial/heritage.jpg" alt="Stitched Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
@@ -163,7 +163,7 @@ export default function HomePage() {
               </div>
             </Link>
 
-            <Link href="/unstitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
+            <Link href="/women?type=unstitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
               <img src="/images/editorial/hero.jpg" alt="Unstitched Fabric" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
@@ -209,7 +209,7 @@ export default function HomePage() {
               <p className="eyebrow text-gold">New Arrivals</p>
               <h3 className="font-display text-5xl leading-tight">Suits for Every Occasion</h3>
               <Button asChild variant="luxury" size="lg" className="mt-6" style={{ background: "#fff", color: "#000" }}>
-                <Link href={womenTab === "stitched" ? "/stitched" : "/unstitched"}>Shop Now</Link>
+                <Link href={womenTab === "stitched" ? "/women?type=stitched" : "/women?type=unstitched"}>Shop Now</Link>
               </Button>
             </div>
           </div>
@@ -248,7 +248,7 @@ export default function HomePage() {
           {/* View All Button for Women section */}
           <div className="mt-12 text-center">
             <Button asChild variant="luxury-outline" size="lg">
-              <Link href={womenTab === "stitched" ? "/stitched" : "/unstitched"}>
+              <Link href={womenTab === "stitched" ? "/women?type=stitched" : "/women?type=unstitched"}>
                 {womenTab === "stitched" ? "View All Stitched Collection" : "View All Unstitched Collection"} &rarr;
               </Link>
             </Button>

@@ -17,17 +17,9 @@ const simpleNavLinks = [
   { label: "CONTACT", href: "/contact" },
 ] as const;
 
-// Women dropdown sub-links
-const womenLinks = [
-  { label: "STITCHED", href: "/stitched" },
-  { label: "UNSTITCHED", href: "/unstitched" },
-] as const;
-
 // Mobile all links flat (for drawer)
 const mobileNavLinks = [
-  { label: "WOMEN", isHeader: true },
-  { label: "Stitched", href: "/stitched", sub: true },
-  { label: "Unstitched", href: "/unstitched", sub: true },
+  { label: "WOMEN", href: "/women" },
   { label: "MEN", href: "/men" },
   { label: "COLLECTIONS", href: "/collections" },
   { label: "OUR STORY", href: "/about" },
@@ -76,34 +68,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-4 xl:gap-7">
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
-              {/* Women with dropdown (click does not navigate, only shows dropdown) */}
-              <div className="relative group">
-                <button
-                  type="button"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative inline-flex items-center gap-1 cursor-pointer bg-transparent border-none p-0"
-                >
-                  <span>WOMEN</span>
-                  <svg width="8" height="5" viewBox="0 0 8 5" fill="none" className="opacity-70 transition-transform duration-300 group-hover:rotate-180">
-                    <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
-                </button>
-                {/* Dropdown */}
-                <div className="absolute left-0 top-full mt-3 w-40 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
-                  <div className="py-1" style={{ background: "#141312", border: "1px solid rgba(255,255,255,0.1)" }}>
-                    {womenLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="block px-5 py-3 text-[10px] xl:text-[11px] uppercase tracking-[0.18em] text-white/80 hover:text-[#dfc187] hover:bg-white/5 transition-all duration-200"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              {/* Women - simple link, no dropdown */}
+              <Link
+                href="/women"
+                className="text-[10px] xl:text-[11px] uppercase tracking-[0.18em] font-medium text-white/90 hover:text-[#dfc187] transition-all duration-300 drop-shadow-sm relative group py-2"
+              >
+                <span>WOMEN</span>
+                <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#dfc187] transition-all duration-300 group-hover:w-full" />
+              </Link>
 
               {/* Simple nav links */}
               {simpleNavLinks.map((item) => (

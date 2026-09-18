@@ -23,7 +23,8 @@ export function ProductCard({ product }: { product: Product }) {
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addToBag(product);
+    const defaultSize = product.isStitched ? (product.sizes[0] || "M") : "Unstitched Fabric";
+    addToBag(product, product.colors[0] || "", defaultSize);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
@@ -39,18 +40,6 @@ export function ProductCard({ product }: { product: Product }) {
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
-
-          {/* Badges */}
-          {product.newArrival && (
-            <span className="absolute left-3 top-3 bg-background/95 px-2.5 py-1 text-[10px] uppercase tracking-[.18em] font-medium shadow-xs">
-              New
-            </span>
-          )}
-          {product.originalPrice && (
-            <span className="absolute left-3 top-3 bg-sale px-2.5 py-1 text-[10px] uppercase tracking-[.18em] text-sale-foreground font-medium shadow-xs">
-              Sale
-            </span>
-          )}
 
           {/* Bottom subtle bar on hover */}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-between text-white text-xs tracking-wider uppercase">
@@ -144,9 +133,15 @@ export function CatalogPage({
       .filter((p) => {
         if (mode === "new") return !!p.newArrival;
         if (mode === "sale") return !!p.originalPrice;
-        if (mode === "stitched") return p.category.includes("Piece") || p.category === "Formal" || p.category === "Kurta";
-        if (mode === "unstitched") return p.category.includes("Piece") || p.fabric.toLowerCase().includes("lawn");
+        if (mode === "stitched") return p.isStitched === true || (p.gender === "Women" && typeof p.unstitchedPrice === "number");
+        if (mode === "unstitched") return p.isStitched === false || (p.gender === "Women" && typeof p.unstitchedPrice === "number");
         return true;
+      })
+      .map((p) => {
+        if (mode === "unstitched" && p.gender === "Women" && typeof p.unstitchedPrice === "number") {
+          return { ...p, price: p.unstitchedPrice };
+        }
+        return p;
       })
       .filter((p) => {
         if (cat === "all") return true;

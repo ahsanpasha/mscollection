@@ -9,8 +9,8 @@ type Store = {
   bag: BagItem[];
   wishlist: string[];
   addToBag: (p: Product, color?: string, size?: string) => void;
-  removeFromBag: (id: string) => void;
-  updateQuantity: (id: string, q: number) => void;
+  removeFromBag: (id: string, color?: string, size?: string) => void;
+  updateQuantity: (id: string, q: number, color?: string, size?: string) => void;
   clearBag: () => void;
   toggleWishlist: (id: string) => void;
 };
@@ -47,9 +47,24 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             ? [...x, { product, color, size, quantity: 1 }]
             : x.map((v, n) => (n === i ? { ...v, quantity: v.quantity + 1 } : v));
         }),
-      removeFromBag: (id) => setBag((x) => x.filter((v) => v.product.id !== id)),
-      updateQuantity: (id, q) =>
-        setBag((x) => x.map((v) => (v.product.id === id ? { ...v, quantity: Math.max(1, q) } : v))),
+      removeFromBag: (id, color, size) =>
+        setBag((x) =>
+          x.filter((v) => {
+            if (v.product.id !== id) return true;
+            if (color !== undefined && v.color !== color) return true;
+            if (size !== undefined && v.size !== size) return true;
+            return false;
+          })
+        ),
+      updateQuantity: (id, q, color, size) =>
+        setBag((x) =>
+          x.map((v) => {
+            const matchesId = v.product.id === id;
+            const matchesColor = color === undefined || v.color === color;
+            const matchesSize = size === undefined || v.size === size;
+            return matchesId && matchesColor && matchesSize ? { ...v, quantity: Math.max(1, q) } : v;
+          })
+        ),
       clearBag: () => setBag([]),
       toggleWishlist: (id) =>
         setWishlist((x) => (x.includes(id) ? x.filter((v) => v !== id) : [...x, id])),

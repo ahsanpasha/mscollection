@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ShieldCheck, Truck, RotateCcw, MessageSquare, ShoppingBag } from "lucide-react";
+import { ShieldCheck, Truck, RotateCcw, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/shop";
-import { colorValue, formatPrice, products } from "@/lib/catalog";
+import { formatPrice, products } from "@/lib/catalog";
 import { useStore } from "@/lib/store";
 
 export default function ProductDetailPage() {
@@ -30,13 +30,27 @@ export default function ProductDetailPage() {
 }
 
 function ProductView({ product }: { product: (typeof products)[0] }) {
+  const hasUnstitchedOption = typeof product.unstitchedPrice === "number";
+  const [format, setFormat] = useState<"stitched" | "unstitched">(
+    product.isStitched ? "stitched" : "unstitched"
+  );
   const [selectedColor, setSelectedColor] = useState(product.colors[0] || "");
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0] || "M");
+  const [selectedSize, setSelectedSize] = useState("M");
   const { addToBag } = useStore();
   const [added, setAdded] = useState(false);
 
+  const isUnstitched = hasUnstitchedOption ? format === "unstitched" : !product.isStitched;
+  const currentPrice = isUnstitched && product.unstitchedPrice ? product.unstitchedPrice : product.price;
+  const activeSizeText = isUnstitched ? "Unstitched Fabric" : selectedSize;
+
   const handleAddToCart = () => {
-    addToBag(product, selectedColor, selectedSize);
+    // Pass custom product object with active format price
+    const productWithActivePrice = {
+      ...product,
+      price: currentPrice,
+      isStitched: !isUnstitched,
+    };
+    addToBag(productWithActivePrice, selectedColor, activeSizeText);
     setAdded(true);
     setTimeout(() => setAdded(false), 2500);
   };
@@ -49,17 +63,14 @@ function ProductView({ product }: { product: (typeof products)[0] }) {
   const whatsappText = `Hello MS Collection! I would like to order:
 
 *Piece:* ${product.name}
-*Price:* ${formatPrice(product.price)}
-*Size:* ${selectedSize}
+*Format:* ${isUnstitched ? "Unstitched Fabric" : `Stitched (Size: ${selectedSize})`}
+*Price:* ${formatPrice(currentPrice)}
 *Colour:* ${selectedColor}
 *SKU:* ${product.sku}
 
 Please confirm availability and delivery details.`;
 
   const whatsappUrl = `https://wa.me/923425389685?text=${encodeURIComponent(whatsappText)}`;
-
-  const tailorWhatsAppText = `Hello MS Collection! I have a sizing / custom tailoring query about *${product.name}* (SKU: ${product.sku}).`;
-  const tailorWhatsAppUrl = `https://wa.me/923425389685?text=${encodeURIComponent(tailorWhatsAppText)}`;
 
   return (
     <main className="page-shell py-10 md:py-16">
@@ -84,16 +95,6 @@ Please confirm availability and delivery details.`;
             alt={product.name}
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
-          {product.newArrival && (
-            <span className="absolute left-4 top-4 bg-background/95 px-3 py-1 text-xs uppercase tracking-[0.18em] font-medium shadow-xs">
-              New Arrival
-            </span>
-          )}
-          {product.originalPrice && (
-            <span className="absolute left-4 top-4 bg-sale px-3 py-1 text-xs uppercase tracking-[0.18em] text-sale-foreground font-medium shadow-xs">
-              Sale
-            </span>
-          )}
         </div>
 
         {/* Product Details & Ordering */}
@@ -106,70 +107,111 @@ Please confirm availability and delivery details.`;
           </h1>
 
           <div className="mt-4 flex items-baseline gap-3">
-            <span className="text-3xl font-light text-foreground">{formatPrice(product.price)}</span>
+            <span className="text-3xl font-light text-foreground">{formatPrice(currentPrice)}</span>
             {product.originalPrice && (
               <span className="text-lg text-muted-foreground line-through">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
-            <span className="text-xs text-muted-foreground uppercase tracking-wider">(Domestic Taxes Included)</span>
           </div>
 
           <p className="mt-6 text-sm leading-7 text-muted-foreground">{product.description}</p>
 
           <div className="mt-8 space-y-6 border-t border-border pt-6">
-            {/* Color Selection */}
-            {product.colors.length > 0 && (
+            {/* Format Selection (Stitched vs Unstitched toggle) */}
+            {hasUnstitchedOption && (
               <div>
                 <span className="text-xs uppercase tracking-[0.16em] font-medium block mb-2">
-                  Colour: <strong className="font-semibold text-foreground">{selectedColor}</strong>
+                  Select Suit Format:
                 </span>
-                <div className="flex gap-2">
-                  {product.colors.map((c) => (
-                    <button
-                      key={c}
-                      type="button"
-                      title={c}
-                      onClick={() => setSelectedColor(c)}
-                      className={`h-9 w-9 rounded-full border-2 p-0.5 transition-all ${selectedColor === c ? "border-primary scale-110 shadow-xs" : "border-border hover:scale-105"
-                        }`}
-                    >
-                      <span
-                        className="block h-full w-full rounded-full border border-black/10"
-                        style={{ backgroundColor: colorValue[c] || "#ddd" }}
-                      />
-                    </button>
-                  ))}
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setFormat("stitched")}
+                    className={`py-3 px-4 border text-xs uppercase tracking-wider font-semibold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${format === "stitched"
+                      ? "border-[#b78c38] bg-[#b78c38] text-white shadow-sm"
+                      : "border-border bg-background text-muted-foreground hover:border-[#b78c38] hover:text-[#b78c38]"
+                      }`}
+                  >
+                    <span>Stitched Prêt</span>
+                    <span className="text-[11px] font-normal opacity-90">{formatPrice(product.price)}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setFormat("unstitched")}
+                    className={`py-3 px-4 border text-xs uppercase tracking-wider font-semibold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${format === "unstitched"
+                      ? "border-[#b78c38] bg-[#b78c38] text-white shadow-sm"
+                      : "border-border bg-background text-muted-foreground hover:border-[#b78c38] hover:text-[#b78c38]"
+                      }`}
+                  >
+                    <span>Unstitched Fabric</span>
+                    <span className="text-[11px] font-normal opacity-90">{formatPrice(product.unstitchedPrice!)}</span>
+                  </button>
                 </div>
               </div>
             )}
 
-            {/* Size Selection (Working buttons) */}
-            <div>
-              <div className="flex items-center justify-between">
-                <span className="text-xs uppercase tracking-[0.16em] font-medium">
-                  Select Size: <strong className="font-semibold text-foreground">{selectedSize}</strong>
+            {/* Size Selection (Only shown for Stitched format) */}
+            {!isUnstitched ? (
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-[0.16em] font-medium">
+                    Select Size:
+                  </span>
+                  <Link href="/size-guide" className="text-xs uppercase tracking-[0.14em] text-gold underline">
+                    View Size Guide
+                  </Link>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2.5">
+                  {(product.sizes.length ? product.sizes : ["XS", "S", "M", "L", "XL"]).map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setSelectedSize(s)}
+                      className={`min-w-14 h-11 border px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all ${selectedSize === s
+                        ? "border-[#b78c38] bg-[#b78c38] text-white shadow-sm"
+                        : "border-border bg-background text-foreground hover:border-[#b78c38] hover:text-[#b78c38]"
+                        }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="rounded-sm border border-border/80 bg-secondary/30 p-4">
+                <span className="text-xs uppercase tracking-[0.16em] font-semibold block text-foreground">
+                  Format: <strong className="text-gold font-semibold">Unstitched Fabric</strong>
                 </span>
-                <Link href="/size-guide" className="text-xs uppercase tracking-[0.14em] text-gold underline">
-                  View Size Guide
-                </Link>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  {product.gender === "Men"
+                    ? ""
+                    : "Standard unstitched suit fabric cut (shirt, dupatta & trouser fabric cut included)."}
+                </p>
               </div>
-              <div className="mt-3 flex flex-wrap gap-2.5">
-                {product.sizes.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => setSelectedSize(s)}
-                    className={`min-w-14 h-11 border px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all ${selectedSize === s
-                      ? "border-primary bg-primary text-primary-foreground shadow-xs"
-                      : "border-border bg-background text-foreground hover:border-primary hover:bg-secondary/40"
-                      }`}
-                  >
-                    {s}
-                  </button>
-                ))}
+            )}
+
+            {/* Disclaimer Notice */}
+            {product.gender === "Men" ? (
+              <div className="rounded-md border border-[#dfc187]/40 bg-[#dfc187]/10 p-4 text-xs leading-relaxed text-foreground">
+                <p className="font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <span>📌 Gents Suit — Unstitched Only</span>
+                </p>
+                <p className="text-muted-foreground text-[12px] leading-relaxed">
+                  Hamare gents suits sirf <strong className="text-foreground">unstitched kapray</strong> ke tor par diye jate hain. Aap ka kapra bikwaya jae ga — stitching apni pasand ki darzi se karwayein.
+                </p>
               </div>
-            </div>
+            ) : (
+              <div className="rounded-md border border-[#dfc187]/40 bg-[#dfc187]/10 p-4 text-xs leading-relaxed text-foreground">
+                <p className="font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <span>📌 Stitching &amp; Customization Notice</span>
+                </p>
+                <p className="text-muted-foreground text-[12px] leading-relaxed">
+                  Picture mein dikhaya gaya stitched design reference ke liye hai. Yeh zaroori nahi ke stitched suit bilkul picture jaisa bana hua ho. Agar aap apni pasand ke mutabiq custom stitching ya design adjustments karwana chahte hain, toh order ke waqt hamein bata saktay hain!
+                </p>
+              </div>
+            )}
 
             {/* Shopping Bag & WhatsApp Ordering CTAs */}
             <div className="space-y-3 pt-4">
@@ -206,10 +248,9 @@ Please confirm availability and delivery details.`;
               </a> */}
             </div>
 
-            {/* Fabric and SKU Info */}
-            <div className="border-y border-border py-4 text-xs tracking-wider uppercase text-muted-foreground flex justify-between">
+            {/* Fabric Info */}
+            <div className="border-y border-border py-4 text-xs tracking-wider uppercase text-muted-foreground">
               <span><strong>Fabric:</strong> {product.fabric}</span>
-              <span><strong>SKU:</strong> {product.sku}</span>
             </div>
 
             {/* Boutique Perks */}

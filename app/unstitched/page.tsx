@@ -9,8 +9,9 @@ export const metadata: Metadata = {
 export default function UnstitchedPage() {
   return (
     <CatalogPage
-      title="Unstitched"
+      title="Women Unstitched"
       copy="Artisanal unstitched fabrics, intricate embroidery and heirloom lawn textiles."
+      gender="Women"
       mode="unstitched"
     />
   );

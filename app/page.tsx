@@ -13,14 +13,14 @@ const heroSlides = [
     img: "/images/home/womenbanner2.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN STITCHED",
-    cta: { label: "SHOP NOW", href: "/stitched" },
+    cta: { label: "SHOP NOW", href: "/women?type=stitched" },
     mobilePos: "object-[center_5%]",
   },
   {
     img: "/images/home/womenbanner1.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN UNSTITCHED",
-    cta: { label: "SHOP NOW", href: "/unstitched" },
+    cta: { label: "SHOP NOW", href: "/women?type=unstitched" },
     mobilePos: "object-[center_5%]",
   },
   {
@@ -58,8 +58,8 @@ export default function HomePage() {
 
   const allWomenProducts = products.filter((p) => p.gender === "Women");
   const filteredWomenProducts = allWomenProducts.filter((p) => {
-    if (womenTab === "stitched") return p.category !== "Unstitched";
-    if (womenTab === "unstitched") return p.category === "Unstitched";
+    if (womenTab === "stitched") return p.isStitched === true;
+    if (womenTab === "unstitched") return p.isStitched === false;
     return true;
   });
 
@@ -73,7 +73,7 @@ export default function HomePage() {
     return result;
   })();
 
-  const menPieces = products.filter((p) => p.gender === "Men" && (p.category === "Shalwar Kameez" || p.category === "Unstitched")).slice(0, 4);
+  const menPieces = products.filter((p) => p.gender === "Men" && p.category === "Shalwar Kameez").slice(0, 3);
 
   const current = heroSlides[slide];
 

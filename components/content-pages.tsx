@@ -153,7 +153,7 @@ Please confirm my order and share payment/delivery timeline.`;
                     <Button
                       size="icon"
                       variant="ghost"
-                      onClick={() => updateQuantity(x.product.id, x.quantity - 1)}
+                      onClick={() => updateQuantity(x.product.id, x.quantity - 1, x.color, x.size)}
                       aria-label="Decrease quantity"
                     >
                       <Minus className="h-4 w-4" />
@@ -162,7 +162,7 @@ Please confirm my order and share payment/delivery timeline.`;
                     <Button
                       size="icon"
                       variant="ghost"
-                      onClick={() => updateQuantity(x.product.id, x.quantity + 1)}
+                      onClick={() => updateQuantity(x.product.id, x.quantity + 1, x.color, x.size)}
                       aria-label="Increase quantity"
                     >
                       <Plus className="h-4 w-4" />
@@ -174,7 +174,7 @@ Please confirm my order and share payment/delivery timeline.`;
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => removeFromBag(x.product.id)}
+                    onClick={() => removeFromBag(x.product.id, x.color, x.size)}
                     className="mt-2 text-muted-foreground hover:text-destructive"
                     aria-label="Remove item"
                   >

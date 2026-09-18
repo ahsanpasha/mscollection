@@ -27,7 +27,7 @@ export function CollectionsPage() {
           <Link href={i % 2 ? "/men" : "/women"} key={n} className="group">
             <div className="aspect-[4/5] overflow-hidden bg-secondary">
               <img
-                src={i % 2 ? "/images/editorial/men.jpg" : "/images/editorial/heritage.jpg"}
+                src={i % 2 ? "/images/editorial/men.jpg" : "/images/home/category1.png"}
                 alt={`${n} collection`}
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]"
               />
@@ -467,7 +467,7 @@ export function StoryPage() {
   return (
     <main>
       <div className="story-hero">
-        <img src="/images/editorial/heritage.jpg" alt="MS Collection heritage craftsmanship" />
+        <img src="/images/home/category1.png" alt="MS Collection heritage craftsmanship" />
         <div>
           <p className="eyebrow text-inverse-muted">Our Story</p>
           <h1>

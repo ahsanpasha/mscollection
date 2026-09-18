@@ -152,7 +152,7 @@ export default function HomePage() {
 
           <div className="grid gap-6 md:grid-cols-3">
             <Link href="/women?type=stitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/images/editorial/heritage.jpg" alt="Stitched Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+              <img src="/images/home/category1.png" alt="Stitched Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Women's</p>
@@ -164,7 +164,7 @@ export default function HomePage() {
             </Link>
 
             <Link href="/women?type=unstitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/images/editorial/hero.jpg" alt="Unstitched Fabric" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+              <img src="/images/home/category2.png" alt="Unstitched Fabric" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Women's</p>
@@ -176,7 +176,7 @@ export default function HomePage() {
             </Link>
 
             <Link href="/men" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/images/editorial/men.jpg" alt="Men's Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+              <img src="/images/home/category3.png" alt="Men's Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Men's</p>
@@ -219,22 +219,20 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => handleWomenTabChange("stitched")}
-              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${
-                womenTab === "stitched"
-                  ? "text-[#b78c38] border-b-2 border-[#b78c38]"
-                  : "text-stone-500 hover:text-stone-800"
-              }`}
+              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${womenTab === "stitched"
+                ? "text-[#b78c38] border-b-2 border-[#b78c38]"
+                : "text-stone-500 hover:text-stone-800"
+                }`}
             >
               STITCHED
             </button>
             <button
               type="button"
               onClick={() => handleWomenTabChange("unstitched")}
-              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${
-                womenTab === "unstitched"
-                  ? "text-[#b78c38] border-b-2 border-[#b78c38]"
-                  : "text-stone-500 hover:text-stone-800"
-              }`}
+              className={`text-xs uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer border-none bg-transparent py-1.5 ${womenTab === "unstitched"
+                ? "text-[#b78c38] border-b-2 border-[#b78c38]"
+                : "text-stone-500 hover:text-stone-800"
+                }`}
             >
               UNSTITCHED
             </button>
@@ -271,7 +269,7 @@ export default function HomePage() {
 
           {/* Wide editorial banner */}
           <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
-            <img src="/images/editorial/men.jpg" alt="Men's Collection" className="h-full w-full object-cover" style={{ filter: "brightness(0.88)" }} />
+            <img src="/images/home/category3.png" alt="Men's Collection" className="h-full w-full object-cover" style={{ filter: "brightness(0.88)" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 65%, transparent 100%)" }} />
             <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-md">
               <p className="eyebrow text-gold">Men's Wear</p>
@@ -303,7 +301,7 @@ export default function HomePage() {
         <div className="page-shell">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
-              <img src="/images/editorial/heritage.jpg" alt="MS Collection Quality" className="h-full w-full object-cover" />
+              <img src="/images/home/category1.png" alt="MS Collection Quality" className="h-full w-full object-cover" />
               <div className="absolute bottom-6 left-6 right-6 border border-white/30 bg-black/60 p-5 text-white" style={{ backdropFilter: "blur(8px)" }}>
                 <p className="eyebrow text-gold">Our Promise</p>
                 <p className="font-display text-2xl">Quality Fabrics, Beautiful Work</p>

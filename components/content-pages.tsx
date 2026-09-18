@@ -464,43 +464,102 @@ function Empty({
 /*                                 OUR STORY                                  */
 /* -------------------------------------------------------------------------- */
 export function StoryPage() {
+  const pillars = [
+    {
+      num: "01",
+      title: "Our Philosophy",
+      desc: "Buy less, choose beautifully, and cherish pieces crafted with intention, grace, and purpose.",
+    },
+    {
+      num: "02",
+      title: "Craftsmanship & Detail",
+      desc: "Every line, seam, embroidery accent and finish is considered for balance, comfort, and lasting elegance.",
+    },
+    {
+      num: "03",
+      title: "Fabric & Quality",
+      desc: "We hand select lawn, khaddar, linen, and dhanak for their luxurious feel, fluid drape, and timeless durability.",
+    },
+    {
+      num: "04",
+      title: "Pakistani Heritage",
+      desc: "Our design language honors rich local traditions—in balanced proportions, subtle ornament, and cultural elegance.",
+    },
+  ];
+
   return (
-    <main>
-      <div className="story-hero">
-        <img src="/images/home/category1.png" alt="MS Collection heritage craftsmanship" />
+    <main style={{ background: "#fcfbf8" }}>
+      <div className="editorial-banner">
         <div>
-          <p className="eyebrow text-inverse-muted">Our Story</p>
-          <h1>
-            Made with memory.
-            <br />
-            Designed for now.
-          </h1>
+          <p className="eyebrow">MS Collection Atelier</p>
+          <h1>Our Story</h1>
+          <p>We create enduring Pakistani dress through an intimate dialogue between heritage craft, modern living, and effortless elegance.</p>
         </div>
       </div>
-      <div className="page-shell py-20">
-        <SectionTitle
-          eyebrow="MS Collection"
-          title="Clothing with a sense of place"
-          copy="We create enduring Pakistani dress through a dialogue between heritage craft and modern life."
-        />
-        <div className="mt-16 grid gap-12 md:grid-cols-2 md:items-center">
-          <img src="/images/editorial/men.jpg" alt="MS Collection modern menswear" className="aspect-[4/5] w-full object-cover" />
-          <div className="max-w-xl md:pl-10">
-            {[
-              ["Our Philosophy", "Buy less, choose beautifully, and return often to pieces made with intention."],
-              ["Craftsmanship", "Every line, stitch and finish is considered for balance, comfort and lasting elegance."],
-              ["Fabric & Quality", "We choose textiles for their hand, fall and ability to become more personal with wear."],
-              ["Pakistani Heritage", "Our vocabulary begins at home—in proportion, ornament, colour and the rituals of dressing."],
-              ["Our Vision", "To share a confident, refined expression of Pakistani style with the world."],
-            ].map(([t, c]) => (
-              <section key={t} className="border-t border-border py-6">
-                <h2 className="font-display text-3xl">{t}</h2>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">{c}</p>
-              </section>
+
+      {/* Main Narrative Showcase */}
+      <section className="py-16 md:py-24">
+        <div className="page-shell">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div className="relative overflow-hidden aspect-[4/5] bg-secondary shadow-lg">
+              <img
+                src="/images/home/category1.png"
+                alt="MS Collection Craftsmanship"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 border border-white/30 bg-black/70 p-6 text-white backdrop-blur-md">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-[#dfc187] font-semibold">THE ATELIER</p>
+                <p className="font-display text-xl sm:text-2xl mt-1 text-white">
+                  "Clothing with a true sense of place and elegance."
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-6 lg:pl-6">
+              <p className="text-xs uppercase tracking-[0.22em] font-semibold text-[#b78c38]">
+                HERITAGE & VISION
+              </p>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl leading-tight text-foreground">
+                Artisanal craftsmanship, refined for modern life.
+              </h2>
+              <p className="text-sm sm:text-base leading-8 text-muted-foreground font-light">
+                At MS Collection, we believe that true style isn't fleeting—it is rooted in comfort, culture, and thoughtful creation. Every collection begins at home, drawing inspiration from timeless Pakistani silhouettes, rich textile traditions, and the ritual of dressing well.
+              </p>
+              <p className="text-sm sm:text-base leading-8 text-muted-foreground font-light">
+                From our premium unstitched fabrics to carefully tailored stitched ensembles, we strive to bring you clothing that feels personal, distinguished, and effortless.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Values / Pillars */}
+      <section className="py-16 md:py-24 bg-[#f5f2eb] border-t border-stone-200">
+        <div className="page-shell">
+          <div className="text-center max-w-xl mx-auto mb-14">
+            <p className="text-xs uppercase tracking-[0.25em] text-[#b78c38] font-semibold mb-2">FOUNDATIONS</p>
+            <h2 className="font-display text-3xl sm:text-4xl">Built on Care & Commitment</h2>
+          </div>
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {pillars.map((p) => (
+              <div
+                key={p.num}
+                className="bg-white p-8 border border-stone-200/80 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#dfc187]"
+              >
+                <span className="font-display text-3xl text-[#b78c38] font-light block mb-4">
+                  {p.num}
+                </span>
+                <h3 className="font-display text-xl mb-3 text-foreground">{p.title}</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  {p.desc}
+                </p>
+              </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
@@ -509,53 +568,43 @@ export function StoryPage() {
 /*                                CONTACT PAGE                                */
 /* -------------------------------------------------------------------------- */
 export function ContactPage() {
-  const [sent, setSent] = useState(false);
-
   return (
-    <main className="page-shell py-16">
-      <div className="grid gap-14 lg:grid-cols-2">
+    <main>
+      <div className="editorial-banner">
         <div>
           <p className="eyebrow">Client Services</p>
-          <h1 className="font-display text-6xl">We would be delighted to hear from you.</h1>
-          <p className="mt-6 max-w-lg leading-7 text-muted-foreground">
-            For styling advice, order enquiries, custom sizing, or a private atelier appointment, reach out to us.
-          </p>
-          <div className="mt-10 border-y border-border py-8 text-sm leading-8">
-            <p><strong>Phone / WhatsApp:</strong> +92 300 000 0000</p>
-            <p><strong>Email:</strong> care@mscollection.pk</p>
-            <p><strong>Flagship Atelier:</strong> Gulberg III, Lahore, Pakistan</p>
-            <p><strong>Atelier Hours:</strong> Monday–Saturday · 11:00 AM – 8:00 PM</p>
-          </div>
+          <h1>Contact Us</h1>
+          <p>For styling advice, order enquiries, or custom sizing, reach out to us on WhatsApp.</p>
         </div>
-        <div>
-          {sent ? (
-            <div className="bg-secondary p-10 text-center">
-              <Check className="mx-auto h-10 w-10 text-gold" />
-              <h2 className="font-display text-3xl mt-4">Message Received</h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Thank you for contacting MS Collection. Our concierge team will respond within 24 hours.
-              </p>
-              <Button variant="luxury-outline" className="mt-6" onClick={() => setSent(false)}>
-                Send Another Message
-              </Button>
-            </div>
-          ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="bg-secondary p-7 md:p-10">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Input label="Full Name" />
-                <Input label="Email Address" type="email" />
-                <Input label="Phone / WhatsApp" />
-                <Input label="Subject / Order ID" />
-              </div>
-              <label className="field-label mt-5">
-                Message
-                <textarea className="field min-h-32 resize-none" required placeholder="How may we assist you?" />
-              </label>
-              <Button variant="luxury" size="lg" className="mt-6 w-full" type="submit">
-                Send Enquiry
-              </Button>
-            </form>
-          )}
+      </div>
+
+      <div className="page-shell py-16">
+        <div className="mx-auto max-w-xl text-center bg-white border border-stone-200 p-8 sm:p-12 shadow-sm">
+          <p className="eyebrow text-[#b78c38]">Direct Assistance</p>
+          <h2 className="font-display text-3xl sm:text-4xl mt-2 text-foreground">We would be delighted to assist you.</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">
+            Contact us directly on WhatsApp for quick order placement, article availability, and instant support.
+          </p>
+
+          <div className="mt-8 pt-8 border-t border-stone-200 space-y-4 text-sm font-medium">
+            <p className="text-base text-foreground">
+              <strong>Phone / WhatsApp:</strong>{" "}
+              <a href="https://wa.me/923425389685" target="_blank" rel="noopener noreferrer" className="text-[#b78c38] hover:underline font-semibold">
+                +92 342 5389685
+              </a>
+            </p>
+          </div>
+
+          <div className="mt-8">
+            <a
+              href="https://wa.me/923425389685"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 py-3.5 px-8 text-xs uppercase tracking-[0.2em] font-semibold bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors shadow-md"
+            >
+              Contact on WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </main>
@@ -815,7 +864,7 @@ export function FaqsPage() {
   const faqs = [
     {
       q: "What payment methods do you accept in Pakistan?",
-      a: "We accept Cash on Delivery (COD) across Pakistan, direct Bank Transfer via Raast/IBFT, and all major Debit/Credit Cards (Visa & MasterCard).",
+      a: "We accept Cash on Delivery (COD) across Pakistan, direct Bank Transfer via Raast/IBFT.",
     },
     {
       q: "How long does domestic shipping take?",
@@ -829,10 +878,7 @@ export function FaqsPage() {
       q: "What is your return and exchange policy?",
       a: "We offer a 7-day hassle-free exchange policy on unworn, unwashed prêt with all original tags attached. Unstitched articles must be in original uncut condition.",
     },
-    {
-      q: "Do you offer international shipping?",
-      a: "Yes, we ship internationally via DHL Express to the UK, USA, UAE, Canada, and Europe. Delivery typically takes 5–8 business days.",
-    },
+
     {
       q: "How can I care for pure lawn and organza fabrics?",
       a: "We recommend gentle dry cleaning for heavily embellished formal ensembles. Pure lawn suits can be hand washed in mild detergent in cold water and ironed on medium heat.",
@@ -840,45 +886,39 @@ export function FaqsPage() {
   ];
 
   return (
-    <main className="page-shell py-16">
-      <div className="mx-auto max-w-3xl">
-        <p className="eyebrow">Help &amp; Concierge</p>
-        <h1 className="font-display text-5xl md:text-6xl">Frequently Asked Questions</h1>
-        <p className="mt-4 text-base text-muted-foreground">
-          Quick answers to common questions about orders, sizing, delivery and boutique services.
-        </p>
-
-        <div className="mt-10 divide-y divide-border border-y border-border">
-          {faqs.map((f, idx) => (
-            <div key={f.q} className="py-5">
-              <button
-                type="button"
-                onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="flex w-full items-center justify-between text-left font-display text-2xl hover:text-gold transition-colors"
-              >
-                <span>{f.q}</span>
-                <ChevronDown
-                  className={`h-5 w-5 shrink-0 transition-transform duration-300 ${openIdx === idx ? "rotate-180 text-gold" : "text-muted-foreground"
-                    }`}
-                />
-              </button>
-              {openIdx === idx && (
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                  {f.a}
-                </p>
-              )}
-            </div>
-          ))}
+    <main>
+      <div className="editorial-banner">
+        <div>
+          <p className="eyebrow">Help & Concierge</p>
+          <h1>Frequently Asked Questions</h1>
+          <p>Quick answers to common questions about orders, sizing, delivery and boutique services.</p>
         </div>
+      </div>
 
-        <div className="mt-14 bg-secondary p-8 border border-border text-center">
-          <h3 className="font-display text-2xl">Still have questions?</h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Our atelier concierge team is always delighted to guide you.
-          </p>
-          <Button asChild variant="luxury" className="mt-5">
-            <Link href="/contact">Contact Concierge</Link>
-          </Button>
+      <div className="page-shell py-16">
+        <div className="mx-auto max-w-3xl">
+          <div className="divide-y divide-border border-y border-border">
+            {faqs.map((f, idx) => (
+              <div key={f.q} className="py-5">
+                <button
+                  type="button"
+                  onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+                  className="flex w-full items-center justify-between text-left font-display text-2xl hover:text-gold transition-colors"
+                >
+                  <span>{f.q}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 transition-transform duration-300 ${openIdx === idx ? "rotate-180 text-gold" : "text-muted-foreground"
+                      }`}
+                  />
+                </button>
+                {openIdx === idx && (
+                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                    {f.a}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </main>

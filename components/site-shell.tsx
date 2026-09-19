@@ -44,13 +44,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex flex-col" style={{ background: "#fcfbf8", color: "#1c1b18" }}>
       {/* Refined Nishat Linen Style Header - Transparent on Home, Solid Black (#141312) on other pages */}
       <header
-        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 py-2 lg:py-3 ${
-          isHome
+        className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 py-2 lg:py-3 ${isHome
             ? isScrolled
               ? "bg-[#141312] shadow-xl"
               : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
             : "bg-[#141312] shadow-xl"
-        }`}
+          }`}
       >
         <div className="page-shell flex items-center justify-between gap-4">
           {/* Logo */}
@@ -247,10 +246,7 @@ function Footer() {
           links={[
             ["Women's Suits", "/women"],
             ["Men's Suits", "/men"],
-            ["Stitched", "/stitched"],
-            ["Unstitched", "/unstitched"],
-            ["New Arrivals", "/new-arrivals"],
-            ["Sale", "/sale"],
+
           ]}
         />
 

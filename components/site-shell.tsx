@@ -62,8 +62,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
             />
           </Link>
 
-          {/* Right Action Controls (Nav & Shopping Bag Icon) */}
-          <div className="flex items-center gap-4 xl:gap-7">
+          {/* Right Action Controls (Nav, Mobile Hamburger & Shopping Bag Icon) */}
+          <div className="flex items-center gap-2 sm:gap-4 xl:gap-7">
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
               {/* Women - simple link, no dropdown */}
@@ -88,7 +88,68 @@ export function SiteShell({ children }: { children: ReactNode }) {
               ))}
             </nav>
 
-            {/* Shopping Bag Icon Badge Link */}
+            {/* Mobile Hamburger Trigger (Three Lines) */}
+            <div className="flex items-center lg:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Open navigation menu"
+                    className="h-10 w-10 text-white hover:bg-white/10"
+                  >
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                {/* Dark Luxury Drawer */}
+                <SheetContent
+                  side="left"
+                  className="w-[85%] max-w-sm p-0 border-r border-white/10 flex flex-col justify-between"
+                  style={{ background: "#141312", color: "#ffffff" }}
+                >
+                  <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                  <SheetDescription className="sr-only">Browse MS Collection</SheetDescription>
+
+                  <div>
+                    <div className="border-b border-white/10 p-6" style={{ background: "#141312" }}>
+                      <img
+                        src="/images/home/logo.svg"
+                        alt="MS Collection"
+                        className="h-16 w-auto object-contain"
+                      />
+                    </div>
+
+                    <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
+                      {mobileNavLinks.map((item) => (
+                        <SheetClose asChild key={item.href}>
+                          <Link
+                            href={item.href}
+                            className="border-b border-white/10 py-3.5 font-display text-lg tracking-widest flex items-center justify-between text-white hover:text-[#dfc187] transition-colors"
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        </SheetClose>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="p-6 border-t border-white/10" style={{ background: "#141312" }}>
+                    <a
+                      href="https://wa.me/923425389685?text=Hello%20MS%20Collection,%20I%20would%20like%20to%20place%20an%20order."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2.5 w-full text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-transform active:scale-95 shadow-md"
+                      style={{ background: "#25D366" }}
+                    >
+                      <WAIcon />
+                      Order on WhatsApp
+                    </a>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* Shopping Bag Icon Badge Link (Cart Icon after Three Lines) */}
             <Link
               href="/cart"
               aria-label="View Shopping Bag"
@@ -101,68 +162,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 </span>
               )}
             </Link>
-          </div>
-
-          {/* Mobile Hamburger Trigger */}
-          <div className="flex items-center lg:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Open navigation menu"
-                  className="h-10 w-10 text-white hover:bg-white/10"
-                >
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              {/* Dark Luxury Drawer */}
-              <SheetContent
-                side="left"
-                className="w-[85%] max-w-sm p-0 border-r border-white/10 flex flex-col justify-between"
-                style={{ background: "#141312", color: "#ffffff" }}
-              >
-                <SheetTitle className="sr-only">Main Menu</SheetTitle>
-                <SheetDescription className="sr-only">Browse MS Collection</SheetDescription>
-
-                <div>
-                  <div className="border-b border-white/10 p-6" style={{ background: "#141312" }}>
-                    <img
-                      src="/images/home/logo.svg"
-                      alt="MS Collection"
-                      className="h-16 w-auto object-contain"
-                    />
-
-                  </div>
-
-                  <div className="flex flex-col p-6 space-y-0 overflow-y-auto" style={{ background: "#141312" }}>
-                    {mobileNavLinks.map((item) => (
-                      <SheetClose asChild key={item.href}>
-                        <Link
-                          href={item.href}
-                          className="border-b border-white/10 py-3.5 font-display text-lg tracking-widest flex items-center justify-between text-white hover:text-[#dfc187] transition-colors"
-                        >
-                          <span>{item.label}</span>
-                        </Link>
-                      </SheetClose>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="p-6 border-t border-white/10" style={{ background: "#141312" }}>
-                  <a
-                    href="https://wa.me/923425389685?text=Hello%20MS%20Collection,%20I%20would%20like%20to%20place%20an%20order."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2.5 w-full text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-transform active:scale-95 shadow-md"
-                    style={{ background: "#25D366" }}
-                  >
-                    <WAIcon />
-                    Order on WhatsApp
-                  </a>
-                </div>
-              </SheetContent>
-            </Sheet>
           </div>
         </div>
       </header>

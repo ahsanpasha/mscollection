@@ -11,6 +11,7 @@ import { products } from "@/lib/catalog";
 const heroSlides = [
   {
     img: "/images/home/womenbanner2.png",
+    mobileImg: "/images/home/womenbanner2mobile.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN STITCHED",
     cta: { label: "SHOP NOW", href: "/women?type=stitched" },
@@ -18,6 +19,7 @@ const heroSlides = [
   },
   {
     img: "/images/home/womenbanner1.png",
+    mobileImg: "/images/home/womenbanner1mobile.png",
     tag: "CROSS SEASON EDIT",
     title: "WOMEN UNSTITCHED",
     cta: { label: "SHOP NOW", href: "/women?type=unstitched" },
@@ -25,6 +27,7 @@ const heroSlides = [
   },
   {
     img: "/images/home/menbanner.png",
+    mobileImg: "/images/home/menbannermobile.png",
     tag: "CROSS SEASON EDIT",
     title: "MEN",
     cta: { label: "SHOP NOW", href: "/men" },
@@ -81,7 +84,7 @@ export default function HomePage() {
     <main className="overflow-hidden">
 
       {/* ── Hero Carousel Section - Exact Nishat Linen Style ──────────────── */}
-      <section className="relative h-[65vh] sm:h-screen min-h-[450px] sm:min-h-[600px] w-full flex items-end justify-start overflow-hidden" style={{ background: "#0a0908" }}>
+      <section className="relative h-screen min-h-[500px] w-full flex items-end justify-start overflow-hidden" style={{ background: "#0a0908" }}>
         {/* Carousel Background Images */}
         {heroSlides.map((s, i) => (
           <div
@@ -89,12 +92,15 @@ export default function HomePage() {
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
             style={{ opacity: i === slide ? 1 : 0, zIndex: i === slide ? 1 : 0 }}
           >
-            <img
-              src={s.img}
-              alt={s.title}
-              className={`h-full w-full object-cover ${s.mobilePos} md:object-center origin-top md:origin-center transition-transform duration-[7000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
-                }`}
-            />
+            <picture className="block w-full h-full">
+              <source media="(max-width: 767px)" srcSet={s.mobileImg} />
+              <img
+                src={s.img}
+                alt={s.title}
+                className={`h-full w-full object-cover ${s.mobilePos} md:object-center origin-top md:origin-center transition-transform duration-[7000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
+                  }`}
+              />
+            </picture>
           </div>
         ))}
 
@@ -141,7 +147,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Shop by Category ──────────────────────────────────────────────── */}
+
       <section className="py-16 md:py-24" style={{ background: "#ffffff" }}>
         <div className="page-shell">
           <SectionTitle
@@ -220,14 +226,8 @@ export default function HomePage() {
             {displayWomenPieces.map((p) => <ProductCard key={p.id} product={p} />)}
           </div>
 
-          {/* View All Button for Women section */}
-          <div className="mt-12 text-center">
-            <Button asChild variant="luxury-outline" size="lg">
-              <Link href={womenTab === "stitched" ? "/women?type=stitched" : "/women?type=unstitched"}>
-                {womenTab === "stitched" ? "View All Stitched Collection" : "View All Unstitched Collection"} &rarr;
-              </Link>
-            </Button>
-          </div>
+
+
         </div>
       </section>
 

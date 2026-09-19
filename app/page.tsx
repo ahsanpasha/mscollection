@@ -209,7 +209,7 @@ export default function HomePage() {
 
           {/* Wide editorial banner ("Suits for Every Occasion") */}
           <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
-            <img src="/images/home/womenbanner.png" alt="Women's Collection" className="h-full w-full object-cover" />
+            <img src="/images/home/women.png" alt="Women's Collection" className="h-full w-full object-cover" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)" }} />
             <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-md">
               <p className="eyebrow text-gold">New Arrivals</p>
@@ -246,7 +246,7 @@ export default function HomePage() {
 
           {/* Wide editorial banner */}
           <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
-            <img src="/images/home/category3.png" alt="Men's Collection" className="h-full w-full object-cover" style={{ filter: "brightness(0.88)" }} />
+            <img src="/images/home/men.png" alt="Men's Collection" className="h-full w-full object-cover" style={{ filter: "brightness(0.88)" }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 65%, transparent 100%)" }} />
             <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-md">
               <p className="eyebrow text-gold">Men's Wear</p>

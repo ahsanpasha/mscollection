@@ -20,6 +20,11 @@ export function ProductCard({ product }: { product: Product }) {
   const { addToBag } = useStore();
   const [added, setAdded] = useState(false);
 
+  const discountPercent =
+    product.originalPrice && product.originalPrice > product.price
+      ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+      : null;
+
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -44,6 +49,13 @@ export function ProductCard({ product }: { product: Product }) {
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
 
+          {/* Luxury Discount Sale Badge */}
+          {discountPercent && (
+            <span className="absolute top-2.5 right-2.5 z-10 bg-[#141312] text-[#dfc187] border border-[#dfc187]/40 text-[10px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 shadow-md">
+              {discountPercent}% OFF
+            </span>
+          )}
+
           {/* Bottom subtle bar on hover */}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-between text-white text-xs tracking-wider uppercase">
             <span>View Details</span>
@@ -64,12 +76,19 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
           </div>
 
-          <div className="mt-2 flex items-baseline gap-2 text-sm">
-            <span className="font-medium text-foreground">{formatPrice(product.price)}</span>
-            {product.originalPrice && (
-              <span className="text-xs text-muted-foreground line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
+          <div className="mt-2 flex items-baseline gap-2 text-sm flex-wrap">
+            <span className="font-semibold text-foreground">{formatPrice(product.price)}</span>
+            {product.originalPrice && product.originalPrice > product.price && (
+              <>
+                <span className="text-xs text-muted-foreground line-through">
+                  {formatPrice(product.originalPrice)}
+                </span>
+                {discountPercent && (
+                  <span className="text-[10px] font-bold text-[#b78c38] uppercase tracking-wider">
+                    ({discountPercent}% OFF)
+                  </span>
+                )}
+              </>
             )}
           </div>
         </div>

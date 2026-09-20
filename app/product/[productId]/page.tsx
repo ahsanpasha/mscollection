@@ -106,12 +106,17 @@ Please confirm availability and delivery details.`;
             {product.name}
           </h1>
 
-          <div className="mt-4 flex items-baseline gap-3">
+          <div className="mt-4 flex items-baseline gap-3 flex-wrap">
             <span className="text-3xl font-light text-foreground">{formatPrice(currentPrice)}</span>
-            {product.originalPrice && (
-              <span className="text-lg text-muted-foreground line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
+            {product.originalPrice && product.originalPrice > currentPrice && (
+              <>
+                <span className="text-lg text-muted-foreground line-through">
+                  {formatPrice(product.originalPrice)}
+                </span>
+                <span className="bg-[#141312] text-[#dfc187] border border-[#dfc187]/40 text-xs font-bold uppercase tracking-wider px-2.5 py-1">
+                  SAVE {Math.round(((product.originalPrice - currentPrice) / product.originalPrice) * 100)}%
+                </span>
+              </>
             )}
           </div>
 

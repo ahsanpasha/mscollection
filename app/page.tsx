@@ -4,7 +4,8 @@ import Link from "next/link";
 import { ArrowRight, Compass, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ProductCard, SectionTitle } from "@/components/shop";
+import { SectionTitle } from "@/components/shop";
+import { ProductCarousel } from "@/components/product-carousel";
 import { products } from "@/lib/catalog";
 
 /* ── Hero carousel images - Exact Nishat Style ──────────────────────────── */
@@ -37,8 +38,7 @@ const heroSlides = [
 
 export default function HomePage() {
   const [slide, setSlide] = useState(0);
-  const [womenTab, setWomenTab] = useState<"stitched" | "unstitched">("stitched");
-  const [womenOffset, setWomenOffset] = useState(0);
+  const [womenTab, setWomenTab] = useState<"all" | "stitched" | "unstitched">("all");
 
   /* Auto advance hero slide every 6 seconds */
   useEffect(() => {
@@ -46,17 +46,8 @@ export default function HomePage() {
     return () => clearInterval(t);
   }, []);
 
-  /* Auto-rotate Women collection articles every 4.5 seconds */
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setWomenOffset((prev) => prev + 1);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, []);
-
-  const handleWomenTabChange = (tab: "stitched" | "unstitched") => {
+  const handleWomenTabChange = (tab: "all" | "stitched" | "unstitched") => {
     setWomenTab(tab);
-    setWomenOffset(0);
   };
 
   const allWomenProducts = products.filter((p) => p.gender === "Women");
@@ -66,17 +57,7 @@ export default function HomePage() {
     return true;
   });
 
-  const displayWomenPieces = (() => {
-    if (!filteredWomenProducts.length) return [];
-    const result = [];
-    const len = filteredWomenProducts.length;
-    for (let i = 0; i < Math.min(4, len); i++) {
-      result.push(filteredWomenProducts[(womenOffset + i) % len]);
-    }
-    return result;
-  })();
-
-  const menPieces = products.filter((p) => p.gender === "Men" && p.category === "Shalwar Kameez").slice(0, 3);
+  const allMenProducts = products.filter((p) => p.gender === "Men");
 
   const current = heroSlides[slide];
 
@@ -97,6 +78,9 @@ export default function HomePage() {
               <img
                 src={s.img}
                 alt={s.title}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={i === 0 ? "high" : "low"}
                 className={`h-full w-full object-cover ${s.mobilePos} md:object-center origin-top md:origin-center transition-transform duration-[7000ms] ease-out ${i === slide ? "scale-105" : "scale-100"
                   }`}
               />
@@ -199,12 +183,36 @@ export default function HomePage() {
       {/* ── Women's Section ───────────────────────────────────────────────── */}
       <section className="py-16 md:py-24" style={{ background: "#ffffff" }}>
         <div className="page-shell">
-          <div className="mb-8">
-            <p className="eyebrow">Women's Collection</p>
-            <h2 className="font-display text-4xl md:text-5xl">Women's Shalwar Kameez</h2>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
-              Beautiful stitched and unstitched suits in lawn, cotton, silk and more — for everyday wear and special occasions.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+              <p className="eyebrow">Women's Collection</p>
+              <h2 className="font-display text-4xl md:text-5xl">Women's Shalwar Kameez</h2>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+                Beautiful stitched and unstitched suits in lawn, cotton, khaddar and more — for everyday wear and special occasions.
+              </p>
+            </div>
+
+            {/* Filter Tabs for Women's Section */}
+            <div className="flex items-center gap-2 border-b border-border pb-1 shrink-0">
+              {[
+                { id: "all", label: "All" },
+                { id: "stitched", label: "Stitched" },
+                { id: "unstitched", label: "Unstitched" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => handleWomenTabChange(tab.id as "all" | "stitched" | "unstitched")}
+                  className={`px-3 py-1.5 text-xs uppercase tracking-[0.16em] font-medium transition-colors cursor-pointer ${
+                    womenTab === tab.id
+                      ? "text-black border-b-2 border-[#dfc187] font-semibold"
+                      : "text-muted-foreground hover:text-black"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Wide editorial banner ("Suits for Every Occasion") */}
@@ -215,24 +223,27 @@ export default function HomePage() {
               <p className="eyebrow text-gold">New Arrivals</p>
               <h3 className="font-display text-5xl leading-tight">Suits for Every Occasion</h3>
               <Button asChild variant="luxury" size="lg" className="mt-6" style={{ background: "#fff", color: "#000" }}>
-                <Link href={womenTab === "stitched" ? "/women?type=stitched" : "/women?type=unstitched"}>Shop Now</Link>
+                <Link href={womenTab === "stitched" ? "/women?type=stitched" : womenTab === "unstitched" ? "/women?type=unstitched" : "/women"}>Shop Now</Link>
               </Button>
             </div>
           </div>
 
+          {/* Women's Product Carousel */}
+          <ProductCarousel products={filteredWomenProducts} autoPlay autoPlayInterval={5000} />
 
-          {/* Auto-rotating articles grid */}
-          <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4 transition-all duration-500">
-            {displayWomenPieces.map((p) => <ProductCard key={p.id} product={p} />)}
+          {/* Show All Women's Articles Button */}
+          <div className="mt-12 text-center">
+            <Button asChild variant="luxury-outline" size="lg" className="hover:bg-[#141312] hover:text-white transition-all">
+              <Link href={womenTab === "stitched" ? "/women?type=stitched" : womenTab === "unstitched" ? "/women?type=unstitched" : "/women"}>
+                Show All Women's Articles &rarr;
+              </Link>
+            </Button>
           </div>
-
-
-
         </div>
       </section>
 
       {/* ── Men's Section ─────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24" style={{ background: "#ffffff" }}>
+      <section className="py-16 md:py-24" style={{ background: "#fcfbf9" }}>
         <div className="page-shell">
           <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
             <div>
@@ -257,15 +268,14 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
-            {menPieces.map((p) => <ProductCard key={p.id} product={p} />)}
-          </div>
+          {/* Men's Product Carousel */}
+          <ProductCarousel products={allMenProducts} autoPlay autoPlayInterval={6000} />
 
-          {/* View All Button for Men section */}
+          {/* Show All Men's Articles Button */}
           <div className="mt-12 text-center">
-            <Button asChild variant="luxury-outline" size="lg">
+            <Button asChild variant="luxury-outline" size="lg" className="hover:bg-[#141312] hover:text-white transition-all">
               <Link href="/men">
-                View All Men's Collection &rarr;
+                Show All Men's Articles &rarr;
               </Link>
             </Button>
           </div>

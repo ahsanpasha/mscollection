@@ -51,7 +51,7 @@ export function ProductCard({ product }: { product: Product }) {
 
           {/* Luxury Discount Sale Badge */}
           {discountPercent && (
-            <span className="absolute top-2.5 right-2.5 z-10 bg-[#141312] text-[#dfc187] border border-[#dfc187]/40 text-[10px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 shadow-md">
+            <span className="absolute top-2.5 right-2.5 z-10 bg-[#dfc187] text-[#141312] text-[10px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 shadow-md">
               {discountPercent}% OFF
             </span>
           )}
@@ -84,8 +84,8 @@ export function ProductCard({ product }: { product: Product }) {
                   {formatPrice(product.originalPrice)}
                 </span>
                 {discountPercent && (
-                  <span className="text-[10px] font-bold text-[#b78c38] uppercase tracking-wider">
-                    ({discountPercent}% OFF)
+                  <span className="text-[10px] font-bold text-[#141312] bg-[#dfc187] px-1.5 py-0.5 uppercase tracking-wider">
+                    {discountPercent}% OFF
                   </span>
                 )}
               </>
@@ -100,8 +100,8 @@ export function ProductCard({ product }: { product: Product }) {
           type="button"
           onClick={handleQuickAdd}
           className={`w-full py-2 px-3 text-[10px] uppercase tracking-[0.16em] font-semibold transition-all duration-300 border flex items-center justify-center gap-1.5 cursor-pointer ${added
-              ? "bg-[#25D366] border-[#25D366] text-white"
-              : "bg-secondary/60 border-border text-foreground hover:bg-[#141312] hover:text-white hover:border-[#141312]"
+            ? "bg-[#25D366] border-[#25D366] text-white"
+            : "bg-secondary/60 border-border text-foreground hover:bg-[#141312] hover:text-white hover:border-[#141312]"
             }`}
         >
           <ShoppingBag className="h-3 w-3" />
@@ -189,8 +189,8 @@ export function CatalogPage({
                 type="button"
                 onClick={() => setCat(c)}
                 className={`px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${cat === c
-                    ? "border-b-2 border-primary font-semibold text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                  ? "border-b-2 border-primary font-semibold text-primary"
+                  : "text-muted-foreground hover:text-foreground"
                   }`}
               >
                 {c === "all" ? "All Articles" : c}

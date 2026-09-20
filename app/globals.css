@@ -74,6 +74,17 @@
   letter-spacing: 0.02em;
 }
 
+/* ── Announcement bar marquee ───────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: inline-flex;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+
 .page-shell {
   width: 100%;
   max-width: 1360px;

@@ -65,7 +65,10 @@ export default function HomePage() {
     <main className="overflow-hidden">
 
       {/* ── Hero Carousel Section - Exact Nishat Linen Style ──────────────── */}
-      <section className="relative h-screen min-h-[500px] w-full flex items-end justify-start overflow-hidden" style={{ background: "#0a0908" }}>
+      <section
+        className="relative min-h-[500px] w-full flex items-end justify-start overflow-hidden h-[92vh] md:h-screen"
+        style={{ background: "#0a0908" }}
+      >
         {/* Carousel Background Images */}
         {heroSlides.map((s, i) => (
           <div
@@ -192,27 +195,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Filter Tabs for Women's Section */}
-            <div className="flex items-center gap-2 border-b border-border pb-1 shrink-0">
-              {[
-                { id: "all", label: "All" },
-                { id: "stitched", label: "Stitched" },
-                { id: "unstitched", label: "Unstitched" },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => handleWomenTabChange(tab.id as "all" | "stitched" | "unstitched")}
-                  className={`px-3 py-1.5 text-xs uppercase tracking-[0.16em] font-medium transition-colors cursor-pointer ${
-                    womenTab === tab.id
-                      ? "text-black border-b-2 border-[#dfc187] font-semibold"
-                      : "text-muted-foreground hover:text-black"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+
           </div>
 
           {/* Wide editorial banner ("Suits for Every Occasion") */}

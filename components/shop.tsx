@@ -150,7 +150,13 @@ export function CatalogPage({
       })
       .map((p) => {
         if (mode === "unstitched" && p.gender === "Women" && typeof p.unstitchedPrice === "number") {
-          return { ...p, price: p.unstitchedPrice };
+          // Keep same discount % as stitched:
+          // unstitchedOriginal = unstitchedPrice × (stitchedOriginal / stitchedPrice)
+          const unstitchedOriginal =
+            p.originalPrice && p.price && p.price > 0
+              ? Math.round((p.unstitchedPrice * p.originalPrice) / p.price / 100) * 100
+              : undefined;
+          return { ...p, price: p.unstitchedPrice, originalPrice: unstitchedOriginal };
         }
         return p;
       })

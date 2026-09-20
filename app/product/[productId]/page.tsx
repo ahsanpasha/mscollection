@@ -43,6 +43,15 @@ function ProductView({ product }: { product: (typeof products)[0] }) {
   const currentPrice = isUnstitched && product.unstitchedPrice ? product.unstitchedPrice : product.price;
   const activeSizeText = isUnstitched ? "Unstitched Fabric" : selectedSize;
 
+  // For unstitched: compute original price at same discount% as stitched
+  // unstitchedOriginal = unstitchedPrice × (stitchedOriginal / stitchedPrice)
+  const displayOriginalPrice: number | undefined = (() => {
+    if (!product.originalPrice) return undefined;
+    if (!isUnstitched) return product.originalPrice;
+    if (!product.unstitchedPrice || !product.price) return undefined;
+    return Math.round((product.unstitchedPrice * product.originalPrice) / product.price / 100) * 100;
+  })();
+
   const handleAddToCart = () => {
     // Pass custom product object with active format price
     const productWithActivePrice = {
@@ -108,13 +117,13 @@ Please confirm availability and delivery details.`;
 
           <div className="mt-4 flex items-baseline gap-3 flex-wrap">
             <span className="text-3xl font-light text-foreground">{formatPrice(currentPrice)}</span>
-            {product.originalPrice && product.originalPrice > currentPrice && (
+            {displayOriginalPrice && displayOriginalPrice > currentPrice && (
               <>
                 <span className="text-lg text-muted-foreground line-through">
-                  {formatPrice(product.originalPrice)}
+                  {formatPrice(displayOriginalPrice)}
                 </span>
                 <span className="bg-[#dfc187] text-[#141312] text-xs font-bold uppercase tracking-wider px-2.5 py-1">
-                  SAVE {Math.round(((product.originalPrice - currentPrice) / product.originalPrice) * 100)}%
+                  SAVE {Math.round(((displayOriginalPrice - currentPrice) / displayOriginalPrice) * 100)}%
                 </span>
               </>
             )}

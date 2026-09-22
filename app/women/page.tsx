@@ -9,7 +9,8 @@ function WomenContent() {
   const type = searchParams.get("type");
 
   // Determine mode based on ?type= query param from hero
-  const mode = type === "unstitched" ? "unstitched" : type === "stitched" ? "stitched" : "all";
+  // Default to unstitched so customers see the lower starting price first
+  const mode = type === "stitched" ? "stitched" : type === "all" ? "all" : "unstitched";
 
   return (
     <CatalogPage

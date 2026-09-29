@@ -18,6 +18,8 @@ export type Product = {
   newArrival?: boolean;
   featured?: boolean;
   popular?: number;
+  rating: number;        // e.g. 4 or 5
+  reviewCount: number;   // e.g. 65
 };
 
 const menImages: readonly string[] = [
@@ -57,6 +59,8 @@ export const womenCatalog: Product[] = [
     newArrival: true,
     featured: true,
     popular: 98,
+    rating: 5,
+    reviewCount: 65,
   },
   {
     id: "printed-lawn-suit-02",
@@ -77,6 +81,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     newArrival: true,
     popular: 95,
+    rating: 4,
+    reviewCount: 48,
   },
   {
     id: "linen-suit-03",
@@ -97,6 +103,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     newArrival: true,
     popular: 89,
+    rating: 4,
+    reviewCount: 37,
   },
   {
     id: "khaddar-suit-04",
@@ -117,6 +125,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     featured: true,
     popular: 94,
+    rating: 5,
+    reviewCount: 101,
   },
   {
     id: "3piece-suit-05",
@@ -137,6 +147,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     featured: true,
     popular: 97,
+    rating: 5,
+    reviewCount: 78,
   },
   {
     id: "3piece-suit-06",
@@ -157,6 +169,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     featured: true,
     popular: 99,
+    rating: 5,
+    reviewCount: 112,
   },
   {
     id: "linen-suit-07",
@@ -177,6 +191,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     newArrival: true,
     popular: 90,
+    rating: 4,
+    reviewCount: 53,
   },
   {
     id: "dhanak-suit-08",
@@ -196,6 +212,8 @@ export const womenCatalog: Product[] = [
     description: "Premium 3-piece dhanak suit — warm, soft and perfect for winter. Available Stitched or Unstitched.",
     isStitched: true,
     popular: 93,
+    rating: 5,
+    reviewCount: 89,
   },
   {
     id: "dhanak-suit-09",
@@ -215,6 +233,8 @@ export const womenCatalog: Product[] = [
     description: "Beautiful 3-piece dhanak suit with elegant design and soft fabric. Available Stitched or Unstitched.",
     isStitched: true,
     popular: 88,
+    rating: 4,
+    reviewCount: 42,
   },
 
   {
@@ -236,6 +256,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     featured: true,
     popular: 96,
+    rating: 5,
+    reviewCount: 134,
   },
   {
     id: "khaddar-suit-13",
@@ -255,6 +277,8 @@ export const womenCatalog: Product[] = [
     description: "Elegant 3-piece khaddar suit with quality fabric and refined design. Available Stitched or Unstitched.",
     isStitched: true,
     popular: 87,
+    rating: 4,
+    reviewCount: 29,
   },
   {
     id: "dhanak-suit-14",
@@ -275,6 +299,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     newArrival: true,
     popular: 94,
+    rating: 5,
+    reviewCount: 76,
   },
   {
     id: "dhanak-suit-15",
@@ -295,6 +321,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     newArrival: true,
     popular: 97,
+    rating: 5,
+    reviewCount: 91,
   },
   {
     id: "dhanak-suit-16",
@@ -315,6 +343,8 @@ export const womenCatalog: Product[] = [
     isStitched: true,
     newArrival: true,
     popular: 95,
+    rating: 4,
+    reviewCount: 57,
   },
   {
     id: "3piece-suit-17",
@@ -336,6 +366,8 @@ export const womenCatalog: Product[] = [
     newArrival: true,
     featured: true,
     popular: 96,
+    rating: 5,
+    reviewCount: 83,
   },
   {
     id: "3piece-shawl-suit-18",
@@ -357,6 +389,8 @@ export const womenCatalog: Product[] = [
     newArrival: true,
     featured: true,
     popular: 98,
+    rating: 5,
+    reviewCount: 119,
   },
 ];
 
@@ -382,6 +416,8 @@ export const menCatalog: Product[] = [
     newArrival: true,
     featured: true,
     popular: 99,
+    rating: 5,
+    reviewCount: 147,
   },
   {
     id: "sarmad-olive-suit",
@@ -401,6 +437,8 @@ export const menCatalog: Product[] = [
     isStitched: false,
     featured: true,
     popular: 94,
+    rating: 4,
+    reviewCount: 62,
   },
   {
     id: "faris-charcoal",
@@ -420,6 +458,8 @@ export const menCatalog: Product[] = [
     isStitched: false,
     newArrival: true,
     popular: 87,
+    rating: 4,
+    reviewCount: 38,
   },
 
   // ── Rangrez Collection ────────────────────────────────────────────────────
@@ -442,6 +482,8 @@ export const menCatalog: Product[] = [
     newArrival: true,
     featured: true,
     popular: 98,
+    rating: 5,
+    reviewCount: 156,
   },
   {
     id: "rangrez-suit-02",
@@ -461,6 +503,8 @@ export const menCatalog: Product[] = [
     isStitched: false,
     newArrival: true,
     popular: 95,
+    rating: 5,
+    reviewCount: 98,
   },
   {
     id: "rangrez-suit-03",
@@ -480,6 +524,8 @@ export const menCatalog: Product[] = [
     isStitched: false,
     newArrival: true,
     popular: 92,
+    rating: 4,
+    reviewCount: 71,
   },
   {
     id: "rangrez-suit-04",
@@ -499,6 +545,8 @@ export const menCatalog: Product[] = [
     isStitched: false,
     newArrival: true,
     popular: 90,
+    rating: 4,
+    reviewCount: 44,
   },
   {
     id: "rangrez-suit-05",
@@ -518,6 +566,8 @@ export const menCatalog: Product[] = [
     isStitched: false,
     newArrival: true,
     popular: 93,
+    rating: 5,
+    reviewCount: 67,
   },
   {
     id: "rangrez-suit-06",
@@ -538,6 +588,8 @@ export const menCatalog: Product[] = [
     newArrival: true,
     featured: true,
     popular: 96,
+    rating: 5,
+    reviewCount: 123,
   },
 ];
 

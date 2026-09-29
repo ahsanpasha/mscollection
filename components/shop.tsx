@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown, SlidersHorizontal, ShoppingBag } from "lucide-react";
+import { ChevronDown, SlidersHorizontal, ShoppingBag, Star } from "lucide-react";
 import { useMemo, useState } from "react";
 import { formatPrice, products, type Product } from "@/lib/catalog";
 import { useStore } from "@/lib/store";
@@ -12,6 +12,26 @@ export function SectionTitle({ eyebrow, title, copy }: { eyebrow?: string; title
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       <h2 className="font-display text-4xl leading-tight md:text-5xl lg:text-6xl">{title}</h2>
       {copy && <p className="mt-4 text-sm leading-7 text-muted-foreground md:text-base">{copy}</p>}
+    </div>
+  );
+}
+
+function StarRating({ rating, reviewCount }: { rating: number; reviewCount: number }) {
+  return (
+    <div className="flex items-center gap-1.5 mt-2">
+      <div className="flex items-center gap-0.5">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star
+            key={star}
+            className={`h-3 w-3 ${
+              star <= rating
+                ? "fill-[#dfc187] text-[#dfc187]"
+                : "fill-transparent text-[#dfc187] opacity-30"
+            }`}
+          />
+        ))}
+      </div>
+      <span className="text-[10px] text-muted-foreground tracking-wide">({reviewCount})</span>
     </div>
   );
 }
@@ -91,6 +111,9 @@ export function ProductCard({ product }: { product: Product }) {
               </>
             )}
           </div>
+
+          {/* Star Rating */}
+          <StarRating rating={product.rating} reviewCount={product.reviewCount} />
         </div>
       </Link>
 

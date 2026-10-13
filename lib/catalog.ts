@@ -1,7 +1,7 @@
 export type Product = {
   id: string;
   name: string;
-  gender: "Women" | "Men";
+  gender: "Women" | "Men" | "Kids";
   category: string;
   collection: string;
   price: number; // Stitched price (or standard price for men)
@@ -593,10 +593,60 @@ export const menCatalog: Product[] = [
   },
 ];
 
+// ── Kids' Catalog ────────────────────────────────────────────────────────────
+export const kidsCatalog: Product[] = [
+  {
+    id: "kids-peach-embroidered-frock-01",
+    name: "Peach Embroidered Festive Frock",
+    gender: "Kids",
+    category: "Frock",
+    collection: "Festive",
+    price: 2000,
+    originalPrice: 2500,
+    fabric: "Embroidered Net & Organza",
+    colors: ["Peach", "Pastel Blue"],
+    sizes: ["2-3Y", "4-5Y", "6-7Y", "8-9Y", "10-12Y"],
+    image: "/images/products/kids/01.jpeg",
+    altImage: "/images/products/kids/01.jpeg",
+    sku: "MSC-K-101",
+    description: "Graceful peach floral embroidered frock with delicate pleated flare, pastel blue waist sash, and soft breathable lining. Perfect for festive celebrations and weddings.",
+    isStitched: true,
+    newArrival: true,
+    featured: true,
+    popular: 98,
+    rating: 5,
+    reviewCount: 48,
+  },
+  {
+    id: "kids-charcoal-shimmer-gown-02",
+    name: "Charcoal Shimmer Pleated Gown",
+    gender: "Kids",
+    category: "Party Wear",
+    collection: "Festive",
+    price: 2000,
+    originalPrice: 2500,
+    fabric: "Shimmer Jacquard",
+    colors: ["Charcoal", "Black"],
+    sizes: ["2-3Y", "4-5Y", "6-7Y", "8-9Y", "10-12Y"],
+    image: "/images/products/kids/02.jpeg",
+    altImage: "/images/products/kids/02.jpeg",
+    sku: "MSC-K-102",
+    description: "Glamorous charcoal shimmer pleated maxi gown adorned with handcrafted 3D floral corsage detailing on shoulder. An enchanting choice for evening parties and weddings.",
+    isStitched: true,
+    newArrival: true,
+    featured: true,
+    popular: 96,
+    rating: 5,
+    reviewCount: 39,
+  },
+];
+
 // Combine all products for default queries
-export const products: Product[] = [...womenCatalog, ...menCatalog];
+export const products: Product[] = [...womenCatalog, ...menCatalog, ...kidsCatalog];
 
 export const colorValue: Record<string, string> = {
+  Peach: "#f4b8a5",
+  "Pastel Blue": "#a8c5db",
   Magenta: "#a20c5d",
   Ivory: "#f2eadc",
   "Powder Blue": "#9fb9ca",

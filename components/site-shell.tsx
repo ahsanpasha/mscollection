@@ -11,6 +11,7 @@ import { useStore } from "@/lib/store";
 // Simple links (no dropdown)
 const simpleNavLinks = [
   { label: "MEN", href: "/men" },
+  { label: "KIDS", href: "/kids" },
   { label: "OUR STORY", href: "/about" },
   { label: "FAQs", href: "/faqs" },
   { label: "CONTACT", href: "/contact" },
@@ -20,6 +21,7 @@ const simpleNavLinks = [
 const mobileNavLinks = [
   { label: "WOMEN", href: "/women" },
   { label: "MEN", href: "/men" },
+  { label: "KIDS", href: "/kids" },
   { label: "OUR STORY", href: "/about" },
   { label: "FAQs", href: "/faqs" },
   { label: "CONTACT", href: "/contact" },
@@ -271,7 +273,7 @@ function Footer() {
           links={[
             ["Women's Suits", "/women"],
             ["Men's Suits", "/men"],
-
+            ["Kids' Collection", "/kids"],
           ]}
         />
 

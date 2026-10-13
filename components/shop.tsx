@@ -154,7 +154,7 @@ export function CatalogPage({
 }: {
   title: string;
   copy: string;
-  gender?: "Women" | "Men" | string;
+  gender?: "Women" | "Men" | "Kids" | string;
   mode?: string;
   initialCategory?: string;
 }) {
@@ -194,9 +194,12 @@ export function CatalogPage({
       });
   }, [gender, mode, cat, sort]);
 
-  const categories = gender === "Men"
-    ? ["all"]
-    : ["all", "2 Piece", "3 Piece"];
+  const categories =
+    gender === "Men"
+      ? ["all"]
+      : gender === "Kids"
+      ? ["all", "Festive", "Frock", "Party Wear"]
+      : ["all", "2 Piece", "3 Piece"];
 
   return (
     <main>

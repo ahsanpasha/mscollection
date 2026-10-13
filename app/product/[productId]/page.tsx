@@ -89,7 +89,10 @@ Please confirm availability and delivery details.`;
           Home
         </Link>
         <span>/</span>
-        <Link href={product.gender === "Women" ? "/women" : "/men"} className="hover:text-foreground">
+        <Link
+          href={product.gender === "Women" ? "/women" : product.gender === "Kids" ? "/kids" : "/men"}
+          className="hover:text-foreground"
+        >
           {product.gender}
         </Link>
         <span>/</span>
@@ -214,6 +217,15 @@ Please confirm availability and delivery details.`;
                 </p>
                 <p className="text-muted-foreground text-[12px] leading-relaxed">
                   Hamare gents suits sirf <strong className="text-foreground">unstitched kapray</strong> ke tor par diye jate hain. Aap ka kapra bikwaya jae ga — stitching apni pasand ki darzi se karwayein.
+                </p>
+              </div>
+            ) : product.gender === "Kids" ? (
+              <div className="rounded-md border border-[#dfc187]/40 bg-[#dfc187]/10 p-4 text-xs leading-relaxed text-foreground">
+                <p className="font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <span>📌 Kids Ready-to-Wear (Stitched)</span>
+                </p>
+                <p className="text-muted-foreground text-[12px] leading-relaxed">
+                  Kids collection ke suits fully stitched aur ready-to-wear hain. Bachon ki standard age sizing ke mutabiq tayar shuda hain.
                 </p>
               </div>
             ) : (

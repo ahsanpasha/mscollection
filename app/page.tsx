@@ -14,16 +14,8 @@ const heroSlides = [
     img: "/images/home/womenbanner2.png",
     mobileImg: "/images/home/womenbanner2mobile.png",
     tag: "CROSS SEASON EDIT",
-    title: "WOMEN STITCHED",
-    cta: { label: "SHOP NOW", href: "/women?type=stitched" },
-    mobilePos: "object-[center_5%]",
-  },
-  {
-    img: "/images/home/womenbanner1.png",
-    mobileImg: "/images/home/womenbanner1mobile.png",
-    tag: "CROSS SEASON EDIT",
-    title: "WOMEN UNSTITCHED",
-    cta: { label: "SHOP NOW", href: "/women?type=unstitched" },
+    title: "WOMEN",
+    cta: { label: "SHOP NOW", href: "/women" },
     mobilePos: "object-[center_5%]",
   },
   {
@@ -33,7 +25,15 @@ const heroSlides = [
     title: "MEN",
     cta: { label: "SHOP NOW", href: "/men" },
     mobilePos: "object-[center_5%]",
-  }
+  },
+  {
+    img: "/images/home/kidbanner1.png",
+    mobileImg: "/images/products/kids/01.jpeg",
+    tag: "FESTIVE COLLECTION",
+    title: "KIDS",
+    cta: { label: "SHOP NOW", href: "/kids" },
+    mobilePos: "object-[center_20%]",
+  },
 ];
 
 export default function HomePage() {
@@ -58,6 +58,7 @@ export default function HomePage() {
   });
 
   const allMenProducts = products.filter((p) => p.gender === "Men");
+  const allKidsProducts = products.filter((p) => p.gender === "Kids");
 
   const current = heroSlides[slide];
 
@@ -140,28 +141,16 @@ export default function HomePage() {
           <SectionTitle
             eyebrow="Our Collections"
             title="Shop by Category"
-            copy="We have stitched and unstitched shalwar kameez for women, and shalwar kameez for men — all available in a variety of fabrics and styles."
+            copy="Explore premium shalwar kameez for women and men, alongside charming festive wear for kids — all crafted with exceptional detail."
           />
 
           <div className="grid gap-6 md:grid-cols-3">
-            <Link href="/women?type=stitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/images/home/category1.png" alt="Stitched Shalwar Kameez" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+            <Link href="/women" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
+              <img src="/images/home/category1.png" alt="Women's Suits" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Women's</p>
-                <h3 className="font-display text-3xl">Stitched Suits</h3>
-                <span className="mt-2 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] text-white/80 group-hover:text-gold transition-colors">
-                  Shop Now <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-              </div>
-            </Link>
-
-            <Link href="/women?type=unstitched" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
-              <img src="/images/home/category2.png" alt="Unstitched Fabric" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
-              <div className="absolute inset-x-6 bottom-6 text-white">
-                <p className="eyebrow text-gold">Women's</p>
-                <h3 className="font-display text-3xl">Unstitched Fabric</h3>
+                <h3 className="font-display text-3xl">Women Suits</h3>
                 <span className="mt-2 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] text-white/80 group-hover:text-gold transition-colors">
                   Shop Now <ArrowRight className="h-3.5 w-3.5" />
                 </span>
@@ -174,6 +163,18 @@ export default function HomePage() {
               <div className="absolute inset-x-6 bottom-6 text-white">
                 <p className="eyebrow text-gold">Men's</p>
                 <h3 className="font-display text-3xl">Shalwar Kameez</h3>
+                <span className="mt-2 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] text-white/80 group-hover:text-gold transition-colors">
+                  Shop Now <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </div>
+            </Link>
+
+            <Link href="/kids" className="group relative aspect-[3/4] overflow-hidden" style={{ background: "#f4f1ea" }}>
+              <img src="/images/products/kids/01.jpeg" alt="Kids' Collection" className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)" }} />
+              <div className="absolute inset-x-6 bottom-6 text-white">
+                <p className="eyebrow text-gold">Kids'</p>
+                <h3 className="font-display text-3xl">Kids Collection</h3>
                 <span className="mt-2 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] text-white/80 group-hover:text-gold transition-colors">
                   Shop Now <ArrowRight className="h-3.5 w-3.5" />
                 </span>
@@ -259,6 +260,51 @@ export default function HomePage() {
             <Button asChild variant="luxury-outline" size="lg" className="hover:bg-[#141312] hover:text-white transition-all">
               <Link href="/men">
                 Show All Men's Articles &rarr;
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Kids' Section ─────────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24" style={{ background: "#ffffff" }}>
+        <div className="page-shell">
+          <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+            <div>
+              <p className="eyebrow">Kids' Collection</p>
+              <h2 className="font-display text-4xl md:text-5xl">Kids' Festive Wear</h2>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+                Delightful stitched frocks and party wear gowns for little ones — crafted for Eid, weddings, and celebrations.
+              </p>
+            </div>
+          </div>
+
+          {/* Wide editorial banner */}
+          <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
+            <img
+              src="/images/products/kids/01.jpeg"
+              alt="Kids' Collection"
+              className="h-full w-full object-cover object-[center_30%]"
+              style={{ filter: "brightness(0.9)" }}
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)" }} />
+            <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-md">
+              <p className="eyebrow text-gold">Festive Edit</p>
+              <h3 className="font-display text-5xl leading-tight">Charm &amp; Delight<br />for Little Ones</h3>
+              <Button asChild size="lg" className="mt-6" variant="luxury" style={{ background: "#fff", color: "#000" }}>
+                <Link href="/kids">Shop Now</Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Kids' Product Carousel */}
+          <ProductCarousel products={allKidsProducts} autoPlay autoPlayInterval={5000} />
+
+          {/* Show All Kids' Articles Button */}
+          <div className="mt-12 text-center">
+            <Button asChild variant="luxury-outline" size="lg" className="hover:bg-[#141312] hover:text-white transition-all">
+              <Link href="/kids">
+                Show All Kids' Articles &rarr;
               </Link>
             </Button>
           </div>

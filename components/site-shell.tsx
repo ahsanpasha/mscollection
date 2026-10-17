@@ -27,7 +27,7 @@ const mobileNavLinks = [
   { label: "CONTACT", href: "/contact" },
 ] as const;
 
-// Promotional Announcement Offers
+// Promotional Announcement Offers (Mobile & Desktop)
 const announcementOffers = [
   {
     icon: "🎁",
@@ -37,7 +37,7 @@ const announcementOffers = [
   },
   {
     icon: "🏷️",
-    badge: "REPEAT OFFER",
+    badge: "10% OFF",
     primary: "REPEAT ORDER: FLAT 10% OFF — VALID FOR 7 DAYS",
     secondary: "(Dobara order karne pe 10% OFF - Valid 7 Days)",
   },
@@ -46,6 +46,18 @@ const announcementOffers = [
     badge: "MEGA BLIND BOX",
     primary: "SHOP RS. 10,000+ & UNLOCK AN EXCLUSIVE MEGA BLIND BOX",
     secondary: "(10K ki shopping pe Bara Gift Box)",
+  },
+  {
+    icon: "🎉",
+    badge: "SALE",
+    primary: "UP TO 25% OFF — SALE NOW LIVE!",
+    secondary: "(Flat aur Up to 25% OFF)",
+  },
+  {
+    icon: "💬",
+    badge: "WHATSAPP",
+    primary: "ORDER VIA WHATSAPP — FAST REPLY & INSTANT CONFIRMATION",
+    secondary: "(WhatsApp par fast reply!)",
   },
 ] as const;
 
@@ -82,19 +94,19 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   {announcementOffers.map((item, i) => (
                     <div
                       key={i}
-                      className="inline-flex items-center gap-2 px-5 sm:px-7 text-[10px] md:text-[11px] uppercase tracking-[0.16em] font-medium text-white/90 shrink-0"
+                      className="inline-flex items-center gap-2 px-4 sm:px-6 text-[10px] sm:text-[11px] uppercase tracking-[0.14em] font-medium text-white/90 shrink-0"
                     >
                       <span className="text-sm shrink-0">{item.icon}</span>
                       <span className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase bg-[#dfc187]/20 text-[#dfc187] border border-[#dfc187]/40 shrink-0">
                         {item.badge}
                       </span>
-                      <span className="font-semibold text-white tracking-[0.14em]">
+                      <span className="font-semibold text-white tracking-[0.12em]">
                         {item.primary}
                       </span>
-                      <span className="text-[#dfc187] text-[10px] normal-case tracking-normal opacity-90 hidden sm:inline font-normal">
+                      <span className="text-[#dfc187] text-[10px] normal-case tracking-normal opacity-90 inline font-normal">
                         {item.secondary}
                       </span>
-                      <span className="ml-5 sm:ml-7 opacity-30 text-[#dfc187]">✦</span>
+                      <span className="ml-4 sm:ml-6 opacity-30 text-[#dfc187]">✦</span>
                     </div>
                   ))}
                 </div>

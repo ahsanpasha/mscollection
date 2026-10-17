@@ -81,8 +81,11 @@
 }
 .animate-marquee {
   display: inline-flex;
-  animation: marquee 32s linear infinite;
+  animation: marquee 45s linear infinite;
   will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 .page-shell {

@@ -27,6 +27,28 @@ const mobileNavLinks = [
   { label: "CONTACT", href: "/contact" },
 ] as const;
 
+// Promotional Announcement Offers
+const announcementOffers = [
+  {
+    icon: "🎁",
+    badge: "FREE GIFT",
+    primary: "ORDERS ABOVE RS. 5,000 GET A FREE GIFT BOX",
+    secondary: "(5,000+ ki shopping par Free Gift Box)",
+  },
+  {
+    icon: "🏷️",
+    badge: "REPEAT OFFER",
+    primary: "REPEAT ORDER: FLAT 10% OFF — VALID FOR 7 DAYS",
+    secondary: "(Dobara order karne pe 10% OFF - Valid 7 Days)",
+  },
+  {
+    icon: "📦",
+    badge: "MEGA BLIND BOX",
+    primary: "SHOP RS. 10,000+ & UNLOCK AN EXCLUSIVE MEGA BLIND BOX",
+    secondary: "(10K ki shopping pe Bara Gift Box)",
+  },
+] as const;
+
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -45,33 +67,46 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#fcfbf8", color: "#1c1b18" }}>
-      {/* ── Announcement Bar — Mobile Only ──────────────────────────────── */}
+      {/* ── Announcement Bar — Running on Mobile & Desktop ─────────────────── */}
       <div
-        className="block lg:hidden fixed top-0 inset-x-0 z-[60] w-full overflow-hidden"
+        className="fixed top-0 inset-x-0 z-40 w-full overflow-hidden border-b border-white/10 select-none group"
         style={{ background: "#141312", height: "36px" }}
       >
-        <div className="flex items-center justify-center h-full gap-3 px-4 overflow-hidden animate-marquee whitespace-nowrap">
-          {[
-            "🎉 UP TO 25% OFF — Sale now on!",
-            "💬 Order via WhatsApp — Fast reply!",
-            "🎉 UP TO 25% OFF — Sale now on!",
-            "💬 Order via WhatsApp — Fast reply!",
-          ].map((msg, i) => (
-            <span
-              key={i}
-              className="inline-block px-6 text-[10px] uppercase tracking-[0.18em] font-semibold shrink-0"
-              style={{ color: "#dfc187" }}
-            >
-              {msg}
-              <span className="ml-6 opacity-30">|</span>
-            </span>
+        <div className="flex items-center h-full overflow-hidden animate-marquee whitespace-nowrap">
+          {/* Two identical track copies so translateX(-50%) creates an infinite seamless loop */}
+          {[0, 1].map((trackIndex) => (
+            <div key={trackIndex} className="inline-flex items-center shrink-0">
+              {/* Repeating the set twice per track guarantees no empty space even on 4K displays */}
+              {[0, 1].map((subIndex) => (
+                <div key={subIndex} className="inline-flex items-center">
+                  {announcementOffers.map((item, i) => (
+                    <div
+                      key={i}
+                      className="inline-flex items-center gap-2 px-5 sm:px-7 text-[10px] md:text-[11px] uppercase tracking-[0.16em] font-medium text-white/90 shrink-0"
+                    >
+                      <span className="text-sm shrink-0">{item.icon}</span>
+                      <span className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase bg-[#dfc187]/20 text-[#dfc187] border border-[#dfc187]/40 shrink-0">
+                        {item.badge}
+                      </span>
+                      <span className="font-semibold text-white tracking-[0.14em]">
+                        {item.primary}
+                      </span>
+                      <span className="text-[#dfc187] text-[10px] normal-case tracking-normal opacity-90 hidden sm:inline font-normal">
+                        {item.secondary}
+                      </span>
+                      <span className="ml-5 sm:ml-7 opacity-30 text-[#dfc187]">✦</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           ))}
         </div>
       </div>
 
       {/* Refined Nishat Linen Style Header - Transparent on Home, Solid Black (#141312) on other pages */}
       <header
-        className={`fixed top-9 lg:top-0 inset-x-0 z-50 w-full transition-all duration-500 py-2 lg:py-3 ${isHome
+        className={`fixed top-9 inset-x-0 z-40 w-full transition-all duration-500 py-2 lg:py-3 ${isHome
           ? isScrolled
             ? "bg-[#141312] shadow-xl"
             : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
@@ -193,7 +228,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </header>
 
       {/* Main Content Area */}
-      <div className={`flex-1 ${!isHome ? "pt-20 lg:pt-24" : ""}`}>{children}</div>
+      <div className={`flex-1 ${!isHome ? "pt-28 lg:pt-32" : ""}`}>{children}</div>
       <Footer />
       <FloatingWhatsApp />
     </div>

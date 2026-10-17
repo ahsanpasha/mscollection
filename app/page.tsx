@@ -27,8 +27,8 @@ const heroSlides = [
     mobilePos: "object-[center_5%]",
   },
   {
-    img: "/images/home/kidbanner1.png",
-    mobileImg: "/images/products/kids/01.jpeg",
+    img: "/images/home/kidbanner2.png",
+    mobileImg: "/images/home/kidmobile.png",
     tag: "FESTIVE COLLECTION",
     title: "KIDS",
     cta: { label: "SHOP NOW", href: "/kids" },
@@ -282,7 +282,7 @@ export default function HomePage() {
           {/* Wide editorial banner */}
           <div className="mb-10 relative aspect-[21/9] overflow-hidden hidden md:block">
             <img
-              src="/images/products/kids/01.jpeg"
+              src="/images/home/kidbanner2.png"
               alt="Kids' Collection"
               className="h-full w-full object-cover object-[center_30%]"
               style={{ filter: "brightness(0.9)" }}
